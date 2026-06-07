@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collectif Mouche</title>
+  <link rel="stylesheet" href="Style_Mouche.css" />
+</head>
+<body>
+<!-------------------------------------------------------------
+                      TRAINEE SOURIS        
+-------------------------------------------------------------->
+  <script>
+  const MAX_TRACES = 4;
+  const SPACING = 40;
+  const IMAGES = [
+    'images/trainee1.png',
+    'images/trainee2.png',
+    'images/trainee3.png',
+  ];
+  let imageIndex = 0;
+  const traces = [];
+  let lastX = -9999, lastY = -9999;
+
+  function createTrace(x, y) {
+    // Décalage aléatoire autour du point
+    const offsetX = (Math.random() - 0.5) * 40; // ±10px
+    const offsetY = (Math.random() - 0.5) * 40; // ±10px
+    const rotation = Math.floor(Math.random() * 360);
+
+    // Alterner les images dans l'ordre
+    const src = IMAGES[imageIndex % IMAGES.length];
+    imageIndex++;
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.cssText = `
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      width: 32px;
+      height: auto;
+      transform: translate(-50%, -50%) rotate(${rotation}deg);
+      transition: opacity 0.3s ease;
+    `;
+    img.style.left = (x + offsetX) + 'px';
+    img.style.top = (y + offsetY) + 'px';
+    img.style.opacity = '1';
+    document.body.appendChild(img);
+    traces.push({ el: img });
+
+    if (traces.length > MAX_TRACES) {
+      const old = traces.shift();
+      old.el.remove();
+    }
+
+    traces.forEach((t, i) => {
+      t.el.style.opacity = (i + 1) / traces.length;
+    });
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist >= SPACING) {
+      createTrace(e.clientX, e.clientY);
+      lastX = e.clientX;
+      lastY = e.clientY;
+    }
+  });
+</script>
+
+<!-------------------------------------------------------------
+                          MENU         
+-------------------------------------------------------------->
+<header class="topnav">
+  <div class="nav-item">
+    <a href="index.html" data-text="Anarchives">Anarchives</a>
+    <a href="Machine.html" data-text="Machine" data-popup="popup-machine">Machine</a>    
+    <a href="Mouche.html" data-text="Mouche" data-popup="popup-mouche">Mouche</a>
+
+  </div>
+</header>
+
+<!-------------------------------------------------------------
+                          TITRE         
+-------------------------------------------------------------->
+  <div class="banner">
+    <p class="tagline">
+      Mouche est un collectif pluridisciplinaire d'exploration de nouvelles narratives.
+    </p>
+  </div>
+
+<!-------------------------------------------------------------
+                          BANNIERE         
+-------------------------------------------------------------->
+  <div class="img-banner img-banner--vert">
+    <img src="images/vertviolet.webp" alt="Bannière 1" />
+  </div>
+
+<!-------------------------------------------------------------
+                          TEXT BLOCK         
+-------------------------------------------------------------->
+  <div class="text-block">
+    <p>À travers la curation d'archives, nous développons des protocoles de création
+      qui questionnent les formes de narration dominantes et valorisent des récits invisibilisés
+      dans lesquels les spectateurices deviennent des<strong>activateur.ices</strong>
+    </p>
+  </div>
+
+<!-------------------------------------------------------------
+                          TEASER         
+-------------------------------------------------------------->
+  <div class="section-video">
+    <img src="images/Fond_Video.webp" alt="" />
+    <div class="section-content">
+      <div class="section-text">
+        <p>Les outils numériques y sont envisagés comme des 
+          <span class="highlight">espaces d'expérimentation</span>, 
+          de dialogue et de <strong>mise en œuvre</strong> 
+          d'images peu partagées.</p>
+      </div>
+      <h2 class="section-titre">Manifeste vidéo</h2>
+      <div class="video-wrapper">
+        <iframe src="https://player.vimeo.com/video/1192652286" 
+                frameborder="0" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+<!-------------------------------------------------------------
+                          CARROUSEL         
+-------------------------------------------------------------->
+  <section class="carousel-section">
+    <h2 class="section-title carousel-title">Exposition du manifeste au CENTQUATRE</h2>
+
+    <div class="carousel-outer">
+      <button class="carousel-btn" id="prev-btn"></button>
+      <div class="carousel-window">
+        <div class="carousel-track" id="carousel-track">
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_15.png" alt="Image 01" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_21.png" alt="Image 02" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_24.png" alt="Image 03" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_29.png" alt="Image 01" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_3.png" alt="Image 02" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_30.png" alt="Image 03" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_33.png" alt="Image 01" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_34.png" alt="Image 02" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_4.png" alt="Image 03" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_8.png" alt="Image 01" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104_23.png" alt="Image 03" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/104/Manifeste_104.png" alt="Image 01" />
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn" id="next-btn">></button>
+    </div>
+  </section>
+
+<!-------------------------------------------------------------
+                          LIGHTBOX         
+-------------------------------------------------------------->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <button class="lightbox-nav" id="lightbox-prev">◀</button>
+    <img id="lightbox-img" src="" alt="" />
+    <button class="lightbox-nav" id="lightbox-next">▶</button>
+  </div>
+
+<!-------------------------------------------------------------
+                          SCRIPT         
+-------------------------------------------------------------->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    const track = document.getElementById('carousel-track');
+    const original = Array.from(track.querySelectorAll('.carousel-slide'));
+    const GAP = 24;
+    let current = original.length;
+    let isAnimating = false;
+
+    original.forEach(s => track.appendChild(s.cloneNode(true)));
+    original.forEach(s => track.insertBefore(s.cloneNode(true), track.firstChild));
+
+    const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+
+    function getSlideWidth() {
+      return slides[0].offsetWidth + GAP;
+    }
+
+    function setPosition(animate) {
+      track.style.transition = animate ? 'transform 0.5s ease' : 'none';
+      track.style.transform = 'translateX(-' + (current * getSlideWidth()) + 'px)';
+      updateActiveSlide();
+    }
+
+    function getVisibleCount() {
+      const windowWidth = document.querySelector('.carousel-window').offsetWidth;
+      const slideWidth = slides[0].offsetWidth;
+      return Math.round(windowWidth / (slideWidth + GAP));
+    }
+
+    function updateActiveSlide() {
+      const visible = getVisibleCount();
+      const centerOffset = Math.floor(visible / 2);
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === current + centerOffset);
+      });
+    }
+
+    setTimeout(() => setPosition(false), 50);
+
+    function goTo(index) {
+      if (isAnimating) return;
+      isAnimating = true;
+      current = index;
+      setPosition(true);
+    }
+
+    track.addEventListener('transitionend', () => {
+      isAnimating = false;
+      const total = slides.length;
+      if (current >= total - original.length) {
+        current = original.length;
+        setPosition(false);
+      } else if (current < original.length) {
+        current = total - original.length * 2;
+        setPosition(false);
+      }
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => goTo(current + 1));
+    document.getElementById('prev-btn').addEventListener('click', () => goTo(current - 1));
+    setInterval(() => goTo(current + 1), 4500);
+
+    // ── Lightbox ──────────────────────────────────────────────
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const images = original.map(s => ({
+      src: s.querySelector('img') ? s.querySelector('img').src : '',
+      alt: s.querySelector('img') ? s.querySelector('img').alt : ''
+    }));
+    let lightboxIndex = 0;
+
+    function openLightbox(index) {
+      lightboxIndex = index;
+      lightboxImg.src = images[lightboxIndex].src;
+      lightboxImg.alt = images[lightboxIndex].alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function lightboxNav(dir) {
+      lightboxIndex = (lightboxIndex + dir + images.length) % images.length;
+      lightboxImg.src = images[lightboxIndex].src;
+      lightboxImg.alt = images[lightboxIndex].alt;
+    }
+
+    track.addEventListener('click', function(e) {
+      const slide = e.target.closest('.carousel-slide');
+      if (!slide) return;
+      const img = slide.querySelector('img');
+      if (!img) return;
+      const idx = original.findIndex(s => {
+        const si = s.querySelector('img');
+        return si && si.src === img.src;
+      });
+      openLightbox(idx >= 0 ? idx : 0);
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', () => lightboxNav(-1));
+    document.getElementById('lightbox-next').addEventListener('click', () => lightboxNav(1));
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'ArrowLeft') lightboxNav(-1);
+      if (e.key === 'ArrowRight') lightboxNav(1);
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+  });
+  </script>
+
+<!-------------------------------------------------------------
+                          FOOTER         
+-------------------------------------------------------------->
+  <div class="footer-block">
+    <p>Imaginé par</p>
+    <h4><strong>Ornella Antony</strong></h4>
+    <h4><span class="highlight">Gaspard Calais</span></h4>
+    <h4><strong>Loane De Almeida Costa</strong></h4>
+    <h4><span class="highlight">Ulysse Migeat</span></h4>
+    <div class="footer-block-logos">
+      <img src="images/logo_mouche_traits.webp" alt="Logo Mouche" />
+      <img src="images/DCN.webp" alt="Logo DCN" />
+    </div>
+  </div>
+
+</body>
+</html>

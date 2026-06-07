@@ -1,0 +1,401 @@
+/* ============================================================
+                            BODY
+============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  cursor: url('images/cursor.png') 0 0, auto;
+  background-image: url(images/Fond_Bleu.webp);
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], label[for], select, .nav-item, .nav-item > a, .dropdown a, .grille a, .popup-close, .popup-machine-lien, .popup-mouche-lien, [onclick], [tabindex], .carousel-slide, .carousel-btn, .lightbox-close, .lightbox-nav {
+  cursor: url('images/cursor_hover.png') 0 0, pointer !important;
+}
+
+/* ============================================================
+                            FONTS
+============================================================ */
+
+@font-face {
+  font-family: 'BianzhidaiMessy';
+  src: url('fonts/bianzhidai_noBG-Messy.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BianzhidaiPearl';
+  src: url('fonts/bianzhidai_noBG-Pearl.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BianzhidaiCloud';
+  src: url('fonts/bianzhidai_noBG-Cloud.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Garabosse';
+  src: url('fonts/Garabosse-Perle.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ============================================================
+                            MENU
+============================================================ */
+
+.topnav {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8vw;
+  width: clamp(350px, 64vw, 680px);
+  height: 6vh;                                  
+  position: fixed;
+  top: 6dvh;
+  left: 50%;   
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  box-shadow: 0px 0px 10px 10px #ffffff;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.nav-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item > a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(100px, 14vw, 200px);        
+  text-align: center; 
+  font-family: 'BianzhidaiPearl', sans-serif; 
+  rotate: random;
+  color: #463838;
+  text-decoration: none;
+  font-size: clamp(9px, 2vw, 18px);
+  position: relative;
+}
+
+.nav-item > a::after {
+  content: attr(data-text);
+  font-family: 'BianzhidaiMessy', sans-serif;
+  font-size: clamp(7px, 1.8vw, 14px);       
+  color: #463838;
+  position: absolute;
+  inset: 0;                                  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;                                 
+}
+
+.nav-item > a:hover { color: transparent; }
+.nav-item > a:hover::after { opacity: 1; }
+
+.dropdown a:hover {
+  color: #7562C7;
+}
+
+
+/* ============================================================
+                        VIDEO WRAPPER
+============================================================ */
+
+.video-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #B6F772;
+}
+
+.video-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border: none;
+  max-height: 100%;
+}
+
+/* ============================================================
+                      GRILLE SOURCES
+============================================================ */
+
+.video-grid {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  width: 100%;
+  margin: 0;
+}
+
+.grille-videos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  padding: 0.8rem;
+  justify-items: start;
+}
+
+.vignette {
+  position: relative;
+  width: 100%;
+}
+
+.vignette a {
+  display: block;
+  text-decoration: none;
+}
+
+.vignette img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.vignette img:hover {
+  filter: saturate(1.6) brightness(1.15);
+}
+
+.vignette .annee {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  color: #463838;
+  font-family: 'Garabosse', sans-serif;
+  -webkit-text-stroke: 4px #ffffff;
+  font-size: clamp(16px, 2vw, 26px);
+  paint-order: stroke fill;
+}
+
+.vignette .titre {
+  font-family: 'BianzhidaiCloud', sans-serif;
+  color: #463838;
+  -webkit-text-stroke: 6px #B6F772;
+  paint-order: stroke fill;
+  font-size: clamp(14px, 1.5vw, 24px);
+  padding: 0.2rem 0.4rem;
+}
+
+.vignette .duree {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  -webkit-text-stroke: 4px #463838;
+  paint-order: stroke fill;
+  color: #B6F772;
+}
+
+/* ============================================================
+                        INFORMATIONS
+============================================================ */
+
+.audio {
+  position: relative;
+  padding: 2rem;
+}
+
+.audio h3 {
+  font-family: 'Garabosse', sans-serif;
+  font-size: clamp(14px, 1.5vw, 24px);
+  font-weight: bold;
+  color: #463838;
+  -webkit-text-stroke: 4px #B6F772;
+  paint-order: stroke fill;
+  margin-bottom: 0.5rem;
+}
+
+.audio h2 {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(14px, 1.5vw, 24px);
+  font-weight: bold;
+  background-color: #B6F772;
+  paint-order: stroke fill;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.infos {
+  position: relative;
+  padding: 2rem;
+}
+
+.infos h2 {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(24px, 2.5vw, 35px);
+  color: #463838;
+  font-weight: normal;
+  background-color: #B6F772;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  display: inline;
+}
+
+.infos h3 {
+  font-family: 'Garabosse', sans-serif;
+  font-size: clamp(14px, 1.5vw, 24px);
+  font-weight: bold;
+  color: #463838;
+  -webkit-text-stroke: 4px #B6F772;
+  paint-order: stroke fill;
+  margin-bottom: 0.5rem;
+}
+
+.infos p {
+  font-family: 'Garabosse', sans-serif;
+  font-size: clamp(20px, 1.8vw, 33px);
+  color: #463838;
+  -webkit-text-stroke: 6px #95D8EF;
+  paint-order: stroke fill;
+  margin-bottom: 1.5rem;
+}
+
+.infos strong {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  background-color: #95D8EF;
+  font-size: clamp(22px, 1.8vw, 33px);
+  font-weight: normal;
+  -webkit-text-stroke: 0 !important;
+}
+
+.infos button {
+  font-family: 'BianzhidaiCloud', sans-serif;
+  font-weight: normal;
+  font-size: clamp(14px, 3vh, 20px);
+  color: #463838;
+  background-color: #B6F772;
+  box-shadow: 4px 4px 4px 0px #E967DB;
+  padding: 0.5rem 1.2rem;
+  margin-right: 0.5rem;
+  margin-bottom: 1.5rem;
+  border: none;
+}
+
+.infos button:hover {
+  background-color: #95D8EF;
+  color: #ffffff;
+}
+
+.infos-participants {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+.infos h4 {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(12px, 2vw, 16px);
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #7562C7;
+  line-height: 1.4;
+  padding: 0.5rem 0.8rem;
+  margin-top: 0.8rem;
+  display: inline-block;
+}
+
+.infos img {
+  width: 100%;
+  height: clamp(100px, 20vh, 250px);
+  object-fit: cover;
+  display: block;
+  margin-top: 1.5rem;
+}
+
+.video-grid h3 {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(14px, 1.5vw, 24px);
+  font-weight: bold;
+  background-color: #B6F772;
+  paint-order: stroke fill;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* ============================================================
+                        RESPONSIVE
+============================================================ */
+
+@media (max-width: 1200px) {
+  .grille-videos { grid-template-columns: repeat(4, 1fr); }
+
+  .video-wrapper { height: 60vh; }
+}
+
+@media (max-width: 900px) {
+  .grille-videos { grid-template-columns: repeat(3, 1fr); }
+
+  .video-wrapper {
+    height: 28vh !important;
+    max-height: 28vh !important;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .body{
+    width: 94vw;
+  }
+
+  .infos { padding: 1.2rem; }
+
+  .infos h2 {
+     font-size: clamp(24px, 2.5vw, 35px);
+    line-height: 1.3;
+  }
+
+  .infos h3 { font-size: clamp(14px, 1.5vw, 24px);; }
+
+  .infos p {
+    font-size: clamp(13px, 4vw, 16px);
+    text-align: left;
+  }
+
+  .infos button {
+    font-size: clamp(11px, 1vw, 16px);
+    padding: 0.8rem 1.4rem;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.8rem;
+  }
+
+  .infos h4 {
+    font-size: clamp(7px, 2vw, 11px);
+    padding: 0.4rem 0.6rem;
+  }
+
+  .video-grid { padding: 1rem; }
+
+  .video-grid h3 { font-size: clamp(14px, 1.5vw, 24px); }
+
+  .grille-videos { grid-template-columns: repeat(2, 1fr); }
+
+  .video-wrapper {
+    height: 20vh !important;
+    max-height: 25vh !important;
+  }
+  .grille-videos { grid-template-columns: repeat(2, 1fr); }
+
+}

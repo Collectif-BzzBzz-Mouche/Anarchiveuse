@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Archive 2605131031</title>
+  <link rel="stylesheet" href="Style_Archives.css">
+</head>
+
+<body>
+
+<!-------------------------------------------------------------
+                      TRAINEE SOURIS        
+-------------------------------------------------------------->
+<script>
+  const MAX_TRACES = 4;
+  const SPACING = 40;
+  const IMAGES = [
+    'images/trainee1.png',
+    'images/trainee2.png',
+    'images/trainee3.png',
+  ];
+  let imageIndex = 0;
+  const traces = [];
+  let lastX = -9999, lastY = -9999;
+
+  function createTrace(x, y) {
+    const offsetX = (Math.random() - 0.5) * 40;
+    const offsetY = (Math.random() - 0.5) * 40;
+    const rotation = Math.floor(Math.random() * 360);
+    const src = IMAGES[imageIndex % IMAGES.length];
+    imageIndex++;
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.cssText = `
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      width: 32px;
+      height: auto;
+      transform: translate(-50%, -50%) rotate(${rotation}deg);
+      transition: opacity 0.3s ease;
+    `;
+    img.style.left = (x + offsetX) + 'px';
+    img.style.top = (y + offsetY) + 'px';
+    img.style.opacity = '1';
+    document.body.appendChild(img);
+    traces.push({ el: img });
+
+    if (traces.length > MAX_TRACES) {
+      const old = traces.shift();
+      old.el.remove();
+    }
+
+    traces.forEach((t, i) => {
+      t.el.style.opacity = (i + 1) / traces.length;
+    });
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist >= SPACING) {
+      createTrace(e.clientX, e.clientY);
+      lastX = e.clientX;
+      lastY = e.clientY;
+    }
+  });
+</script>
+
+<!-------------------------------------------------------------
+                          MENU         
+-------------------------------------------------------------->
+<header class="topnav">
+  <div class="nav-item">
+    <a href="index.html" data-text="Anarchives">Anarchives</a>
+    <a href="Machine.html" data-text="Machine">Machine</a>
+    <a href="Mouche.html" data-text="Mouche">Mouche</a>
+  </div>
+</header>
+
+<!-------------------------------------------------------------
+                          VIDEO         
+-------------------------------------------------------------->
+<div class="video-wrapper">
+  <iframe
+    class="video-frame"
+    src="https://player.vimeo.com/video/1192652286?autoplay=1&muted=1&loop=1"
+    allow="autoplay; fullscreen; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<!-------------------------------------------------------------
+                        INFORMATIONS         
+-------------------------------------------------------------->
+<div class="infos">
+  <h3>Samedi 12 Septembre 2026</h3>
+  <h3>Fête de l'Humanité • Base 217, le Plessy-Paté</h3>
+  <h2>Anarchive 2609121558</h2>
+  <button class="btn-partager">Partager</button>
+  <button>Télécharger</button>
+  <div class="infos-participants">
+    <h4>Arthur, Lucien et Sha</h4>
+  </div>
+  <img src="images/vertviolet.webp" alt="Bannière">
+</div>
+
+<!-------------------------------------------------------------
+                          SOURCES         
+-------------------------------------------------------------->
+<section class="audio">
+  <h3>Matière sonore utilisée : </h3>
+  <h2>L'internationale</h2>
+</section>
+
+<section class="video-grid">
+  <h3>Sources utilisées</h3>
+  <div class="grille-videos">
+
+    <div class="vignette">
+      <a href="https://www.cinearchives.org/catalogue-fete-de-garches-la-1104-100-1-1.html" target="_blank" rel="noopener noreferrer">
+        <img src="images/tmp3.png" alt="Fête de l'Humanité">
+        <span class="annee">1965</span>
+        <p class="titre">Fête de l'Humanité</p>
+        <p class="duree">00:03:42</p>
+      </a>
+    </div>
+
+    <div class="vignette">
+      <img src="images/tmp2.png" alt="">
+      <span class="annee">1936</span>
+      <p class="titre">Por la independe...</p>
+      <p class="duree">00:15:12</p>
+    </div>
+
+    <div class="vignette">
+      <img src="images/tmp1.png" alt="">
+      <span class="annee">1936</span>
+      <p class="titre">Por la independe...</p>
+      <p class="duree">00:15:12</p>
+    </div>
+
+    <div class="vignette">
+      <img src="images/tmp4.png" alt="">
+      <span class="annee">1965</span>
+      <p class="titre">Fête de l'Humanité</p>
+      <p class="duree">00:03:42</p>
+    </div>
+
+    <div class="vignette">
+      <img src="images/tmp5.png" alt="">
+      <span class="annee">1936</span>
+      <p class="titre">Por la independe...</p>
+      <p class="duree">00:15:12</p>
+    </div>
+
+    <div class="vignette">
+      <img src="images/tmp6.png" alt="">
+      <span class="annee">1936</span>
+      <p class="titre">Por la independe...</p>
+      <p class="duree">00:15:12</p>
+    </div>
+
+  </div>
+</section>
+
+<!-------------------------------------------------------------
+                        BOUTON PARTAGER         
+-------------------------------------------------------------->
+<script>
+  document.querySelectorAll('.btn-partager').forEach(btn => {
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Lien copié !';
+        btn.style.backgroundColor = '#9583FF';
+        btn.style.color = '#ffffff';
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.style.backgroundColor = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

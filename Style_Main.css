@@ -1,0 +1,358 @@
+/* ============================================================
+                            BODY
+============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  cursor: url('images/cursor.png') 0 0, auto;
+  background-image: url(images/Fond_Bleu.webp);
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], label[for], select, .nav-item, .nav-item > a, .dropdown a, .grille a, .popup-close, .popup-machine-lien, .popup-mouche-lien, [onclick], [tabindex] {
+  cursor: url('images/cursor_hover.png') 0 0, pointer !important;
+}
+
+/* ============================================================
+                            FONTS
+============================================================ */
+
+@font-face {
+  font-family: 'BianzhidaiMessy';
+  src: url('fonts/bianzhidai_noBG-Messy.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BianzhidaiPearl';
+  src: url('fonts/bianzhidai_noBG-Pearl.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BianzhidaiCloud';
+  src: url('fonts/bianzhidai_noBG-Cloud.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Garabosse';
+  src: url('fonts/Garabosse-Perle.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ============================================================
+                            MENU
+============================================================ */
+
+.topnav {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8vw;
+  width: clamp(350px, 64vw, 680px);
+  height: 6vh;                                  
+  position: fixed;
+  top: 50dvh;
+  left: 50%;   
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  box-shadow: 0px 0px 10px 10px #ffffff;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.nav-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item > a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(100px, 14vw, 200px);        
+  text-align: center; 
+  font-family: 'BianzhidaiPearl', sans-serif; 
+  rotate: random;
+  color: #463838;
+  text-decoration: none;
+  font-size: clamp(9px, 2vw, 18px);
+  position: relative;
+}
+
+.nav-item > a::after {
+  content: attr(data-text);
+  font-family: 'BianzhidaiMessy', sans-serif;
+  font-size: clamp(7px, 1.8vw, 14px);       
+  color: #463838;
+  position: absolute;
+  inset: 0;                                  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;                                 
+}
+
+.nav-item > a:hover { color: transparent; }
+.nav-item > a:hover::after { opacity: 1; }
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  background: #ffffff;
+  box-shadow: 0px 0px 6px 6px #ffffff;
+  z-index: 980;
+  min-width: 100%;
+}
+
+.dropdown a {
+  display: block;
+  width: auto;
+  line-height: normal;
+  padding: 12px 1.2vw;
+  font-family: 'Garabosse', sans-serif;
+  color: #463838;
+  text-decoration: none;
+  font-size: clamp(10px, 1.3vw, 16px);
+}
+
+.dropdown a:hover {
+  color: #7562C7;
+}
+
+.nav-item:hover .dropdown { display: block; }
+
+/* ============================================================
+                            GRILLE
+============================================================ */
+
+.grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100%;
+  background-image: url(images/Fond_Galerie.webp);
+}
+
+.grille a {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 2 / 1;
+  position: relative; 
+}
+
+.grille a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+  transition: filter 1s ease;
+  mix-blend-mode:color-burn;
+}
+
+.grille a:hover img {
+  mix-blend-mode:normal;
+}
+
+.grille a .overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.grille a:hover .overlay {
+  opacity: 1;
+}
+
+.grille a .overlay h3 {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(14px, 1.5vw, 24px);
+  color: #ffffff;
+  margin: 0;
+  -webkit-text-stroke: 6px #E967DB;
+  paint-order: stroke fill;
+}
+
+.grille a .overlay p {
+  font-family: 'Garabosse', sans-serif;
+  font-size: clamp(11px, 1vw, 16px);
+  color: #ffffff;
+  margin: 0;
+  -webkit-text-stroke: 6px #E967DB;
+  paint-order: stroke fill;
+}
+
+/* ============================================================
+                          POP-UP
+============================================================ */
+.popup-box {
+  display: none;
+  background: #ffffff;
+  box-shadow: 0px 0px 10px 10px #ffffff;
+  padding: clamp(0.75rem, 1.4vw, 1rem);
+  overflow-y: auto;
+  position: fixed;
+  z-index: 500;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.popup-box.is-open {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.popup-machine {
+  width: clamp(220px, 24vw, 500px);
+  height: clamp(240px, 66vh, 700px);
+  top: clamp(6%, 24%, 28%);
+  left: clamp(1rem, 5%, 6%);
+  aspect-ratio: 24/66;
+}
+
+.popup-mouche {
+  width: clamp(200px, 24vw, 550px);
+  height: clamp(300px, 66vh, 700px);
+  top: clamp(4%, 2%, 4%);
+  right: clamp(2%, 4%, 6%);
+  aspect-ratio: 24/66;
+}
+
+
+.popup-box img {
+  width: 100%;
+  display: block;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  margin: 0;
+}
+
+.popup-mouche img:first-of-type {
+  width: calc(100% + 2 * clamp(0.75rem, 2vw, 2rem));
+  margin-left: calc(-1 * clamp(0.75rem, 2vw, 2rem));
+  margin-right: calc(-1 * clamp(0.75rem, 2vw, 2rem));
+  display: block;
+}
+
+.popup-machine img:first-of-type {
+  width: 80%;
+}
+
+.popup-box p {
+  font-family: 'Garabosse', sans-serif;
+  font-size: clamp(11px, 1vw, 16px);
+  color: #000000;
+  -webkit-text-stroke: 6px #95D8EF;
+  paint-order: stroke fill;
+  line-height: 1;
+  padding: 2vh;
+}
+
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-family: 'BianzhidaiPearl', sans-serif;
+  color: #000000;
+  text-decoration: none;
+  font-size: clamp(10px, 1.8vw, 16px);
+}
+
+.popup-machine-lien,
+.popup-mouche-lien {
+  display: block;
+  width: fit-content;
+  text-align: center;
+  margin: 1rem auto;
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(10px, 1.8vw, 16px);
+  color: #463838;
+  text-decoration: none;
+  background-color: #B6F772;
+  box-shadow: 4px 4px 4px 0px #7562C7;
+  padding: 0.4em 1.8em;
+  position: relative;
+  overflow: hidden;
+}
+
+.popup-machine-lien::after,
+.popup-mouche-lien::after {
+  content: attr(data-text);
+  font-family: 'BianzhidaiMessy', sans-serif;
+  font-size: clamp(8px, 1.4vw, 14px);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #B6F772;
+  opacity: 0;
+  color: #463838;
+}
+
+.popup-machine-lien:hover,
+.popup-mouche-lien:hover {
+  color: transparent;
+}
+
+.popup-machine-lien:hover::after,
+.popup-mouche-lien:hover::after {
+  opacity: 1;
+}
+
+.popup-box strong {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-weight: normal;
+  font-size: clamp(10px, 1.8vw, 16px);
+  background-color: #95D8EF;
+  -webkit-text-stroke: 0;
+  padding: 1%;
+}
+
+.popup-box .highlight {
+  font-family: 'BianzhidaiCloud', sans-serif;
+  font-weight: normal;
+  font-size: clamp(10px, 1.2vw, 16px);
+  background-color: #95D8EF;
+  -webkit-text-stroke: 0;
+}
+
+/* ============================================================
+                          RESPONSIVE
+============================================================ */
+
+@media (max-width: 900px) {
+  .grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {         
+  .grille {
+    grid-template-columns: 1fr;
+  }
+}

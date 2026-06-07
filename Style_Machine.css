@@ -1,0 +1,614 @@
+/* ============================================================
+                            BODY
+============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  cursor: url('images/cursor.png') 0 0, auto;
+  background-image: url(images/Fond_Bleu.webp);
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], label[for], select, .nav-item, .nav-item > a, .dropdown a, .grille a, .popup-close, .popup-machine-lien, .popup-mouche-lien, [onclick], [tabindex], .carousel-slide, .carousel-btn, .lightbox-close, .lightbox-nav {
+  cursor: url('images/cursor_hover.png') 0 0, pointer !important;
+}
+
+/* ============================================================
+                            FONTS
+============================================================ */
+
+@font-face {
+  font-family: 'BianzhidaiMessy';
+  src: url('fonts/bianzhidai_noBG-Messy.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BianzhidaiPearl';
+  src: url('fonts/bianzhidai_noBG-Pearl.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BianzhidaiCloud';
+  src: url('fonts/bianzhidai_noBG-Cloud.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Garabosse';
+  src: url('fonts/Garabosse-Perle.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ============================================================
+                            MENU
+============================================================ */
+
+.topnav {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8vw;
+  width: clamp(350px, 64vw, 680px);
+  height: 6vh;                                  
+  position: fixed;
+  top: 6dvh;
+  left: 50%;   
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  box-shadow: 0px 0px 10px 10px #ffffff;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.nav-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item > a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(100px, 14vw, 200px);        
+  text-align: center; 
+  font-family: 'BianzhidaiPearl', sans-serif; 
+  rotate: random;
+  color: #463838;
+  text-decoration: none;
+  font-size: clamp(9px, 2vw, 18px);
+  position: relative;
+}
+
+.nav-item > a::after {
+  content: attr(data-text);
+  font-family: 'BianzhidaiMessy', sans-serif;
+  font-size: clamp(7px, 1.8vw, 14px);       
+  color: #463838;
+  position: absolute;
+  inset: 0;                                  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;                                 
+}
+
+.nav-item > a:hover { color: transparent; }
+.nav-item > a:hover::after { opacity: 1; }
+
+.dropdown a:hover {
+  color: #7562C7;
+}
+
+/* ============================================================
+                          CARROUSEL
+============================================================ */
+
+.carousel-section {
+  padding: clamp(2rem, 4vw, 4rem) 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.carousel-outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+}
+
+.carousel-btn {
+  background: none;
+  border: none;
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(16px, 2vw, 28px);
+  color: #000000;
+  cursor: pointer;
+  flex-shrink: 0;
+  z-index: 10;
+  padding: 0 1rem;
+  line-height: 1;
+  align-self: center;
+}
+
+.carousel-window {
+  overflow: hidden;
+  width: 90%;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+}
+
+.carousel-slide {
+  flex: 0 0 calc(33.333% - 1rem);
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: scale(0.95);
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 50vh;
+  object-fit: cover;
+  display: block;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+#lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 2px;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #ffffff;
+  font-size: 1.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: background 0.2s;
+}
+
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  z-index: 10000;
+}
+
+.lightbox-nav:hover {
+  opacity: 1;
+}
+
+#lightbox-prev {
+  left: 0.5rem;
+}
+
+#lightbox-next {
+  right: 0.5rem;
+}
+
+/* ============================================================
+                            BODY
+============================================================ */
+body {
+  overflow-x: hidden;
+  background-image: url(images/Fond_Bleu.webp);
+  background-size: cover;
+  animation: fadeIn 0.6s ease;
+  cursor: url('images/cursor.png'), auto;
+}
+
+/* ============================================================
+                        BLOCS TEXTE GRILLE
+============================================================ */
+
+.bloc-texte {
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
+  padding-top: 12vh;
+  text-align: center;
+  margin: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+}
+
+.bloc-texte h2 {
+  font-family: 'Garabosse', sans-serif;
+  font-weight: normal;
+  font-size: clamp(24px, 2.5vw, 35px);
+  color: #000000;
+  line-height: 1.2;
+  -webkit-text-stroke: 6px #95D8EF;
+  paint-order: stroke fill;
+}
+
+.bloc-texte p {
+  font-family: 'Garabosse', sans-serif;
+  font-weight: bold;
+  font-size: clamp(20px, 1.8vw, 30px);
+  color: #000000;
+  line-height: 1.7;
+  -webkit-text-stroke: 6px #B6F772;
+  paint-order: stroke fill;
+  text-align: center;
+  padding-top: 2vh;
+}
+
+.bloc-texte strong {
+  font-family: 'BianzhidaiCloud', sans-serif;
+  font-weight: normal;
+  background-color: #95D8EF;
+  -webkit-text-stroke: 0;
+}
+
+.bloc-texte .highlight {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-weight: normal;
+  background-color: #B6F772;
+  -webkit-text-stroke: 0;
+}
+
+.banner img {
+  padding-top: 4vh;
+  align-items: center;
+  width: 100%;
+}
+
+/* ============================================================
+                          CARTE
+============================================================ */
+.carte {
+  width: 90%;
+  background-image: url(images/Carte.webp);
+  background-size: cover;
+  background-position: center;
+  aspect-ratio: 2/3;
+  margin: 0 auto;
+  overflow: visible;
+  position: relative;
+}
+
+.carte-texte {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  padding: 0 2vw;
+}
+
+.carte-lieux {
+  position: absolute;
+  inset: 0;
+}
+
+.carte h2 {
+  font-family: 'BianzhidaiCloud', sans-serif;
+  font-weight: normal;
+  font-size: clamp(24px, 2.5vw, 35px);
+  color: #000000;
+  line-height: 1.2;
+  -webkit-text-stroke: 6px #95D8EF;
+  paint-order: stroke fill;
+  margin-top: 6vh;
+}
+
+.carte h3 {
+  font-family: 'Garabosse', sans-serif;
+  font-weight: normal;
+  font-size: clamp(14px, 1.5vw, 24px);
+  color: #000000;
+  line-height: 1.2;
+  -webkit-text-stroke: 6px #95D8EF;
+  paint-order: stroke fill;
+}
+
+.carte h4 {
+  font-family: 'Garabosse', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: clamp(14px, 2vw, 22px);
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  -webkit-text-stroke: 6px #463838;
+  paint-order: stroke fill;
+}
+
+.carte strong {
+  font-family: 'BianzhidaiCloud', sans-serif;
+  font-weight: normal;
+  background-color: #95D8EF;
+  -webkit-text-stroke: 0;
+  box-shadow: 4px 4px 4px 0px #E967DB;
+}
+
+.carte .highlight {
+  font-family: 'BianzhidaiCloud', sans-serif;
+  font-weight: normal;
+  background-color: #95D8EF;
+  -webkit-text-stroke: 0;
+  box-shadow: 4px 4px 4px 0px #B6F772;
+}
+
+.carte p {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: clamp(10px, 1.2vw, 16px);
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  -webkit-text-stroke: 6px #463838;
+  paint-order: stroke fill;
+}
+
+.lieu1  { top: 18%; left: 14%; }
+.lieu2  { top: 28%; left: 72%; }
+.lieu3  { top: 36%; left: 40%; }
+.lieu4  { top: 44%; left: 84%; }
+.lieu5  { top: 50%; left: 18%; }
+.lieu6  { top: 58%; left: 60%; }
+.lieu7  { top: 65%; left: 34%; }
+.lieu8  { top: 72%; left: 78%; }
+.lieu9  { top: 78%; left: 62%; }
+.lieu10 { top: 85%; left: 30%; }
+
+.lieu1, .lieu2, .lieu3, .lieu4, .lieu5,
+.lieu6, .lieu7, .lieu8, .lieu9, .lieu10 {
+  height: 8%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  position: absolute;
+  overflow: visible;
+  padding-bottom: 0.5rem;
+}
+
+.lieu-ancrage::before,
+.lieu-mediation::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+.lieu-ancrage::before {
+  background-image: url(images/fonds_carte.webp);
+  box-shadow: 4px 4px 4px 0px #E967DB;
+}
+
+.lieu-mediation::before {
+  background-image: url(images/bleu_violet_.webp);
+  box-shadow: 4px 4px 4px 0px #B6F772;
+}
+
+.lieu-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+                            FOOTER
+============================================================ */
+
+.footer-block {
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
+  padding-top: 10vh;
+  text-align: left;
+}
+
+.footer-block p {
+  font-family: 'Garabosse', sans-serif;
+  font-weight: bold;
+  font-size: clamp(14px, 1.2vw, 20px);
+  color: #463838;
+  margin-bottom: 0.5rem;
+  -webkit-text-stroke: 6px #B6F772;
+  paint-order: stroke fill;
+}
+
+.footer-block h4 {
+  font-size: clamp(18px, 2vw, 32px);
+  font-weight: normal;
+  line-height: 1;
+}
+
+.footer-block strong {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-weight: normal;
+  color: #463838;
+  -webkit-text-stroke: 6px #B6F772;
+  paint-order: stroke fill;
+  background-color: #B6F772;
+}
+
+.footer-block .highlight {
+  font-family: 'BianzhidaiCloud', sans-serif;
+  font-weight: normal;
+  color: #463838;
+  -webkit-text-stroke: 6px #B6F772;
+  paint-order: stroke fill;
+  background-color: #B6F772;
+}
+
+.footer-block-logos {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.footer-block-logos img {
+  height: clamp(30px, 4vw, 60px);
+  width: auto;
+}
+
+/* ============================================================
+                          RESPONSIVE
+============================================================ */
+
+@media (max-width: 768px) {
+
+  .carte {
+    width: 98%;
+    aspect-ratio: unset;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center top;
+  }
+
+  .carte-texte {
+    position: relative;
+    z-index: 2;
+    padding: 4vw;
+    padding-top: 8vh;
+  }
+
+  .carte-lieux {
+    position: relative;
+    inset: unset;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+  }
+
+  .carte h2 {
+    font-size: clamp(24px, 2.5vw, 35px);
+    margin-top: 0;
+  }
+
+  .carte h3 {
+    font-size: clamp(14px, 1.5vw, 24px);
+  }
+
+  .carte h4 {
+    font-size: clamp(7px, 2vw, 11px);
+    margin-bottom: 0.2rem;
+  }
+
+  .carte p {
+    font-size: clamp(6px, 1.6vw, 9px);
+    margin-bottom: 0;
+  }
+
+  .lieu1, .lieu2, .lieu3, .lieu4, .lieu5,
+  .lieu6, .lieu7, .lieu8, .lieu9, .lieu10 {
+    height: 11%;
+    aspect-ratio: 1 / 1;
+    padding-bottom: 0.15rem;
+  }
+
+  .lieu4 { left: 78%; }
+  .lieu8 { left: 74%; }
+  
+  .layout-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    width: 95%;
+    margin-top: 8vh;
+  }
+
+  .bloc-texte h2 {
+    font-size: clamp(24px, 2.5vw, 35px);
+  }
+
+  .bloc-texte h3 {
+    font-size: clamp(14px, 1.5vw, 24px);
+  }
+
+  .bloc-texte p {
+    font-size: clamp(20px, 1.8vw, 33px);
+  }
+
+    .carousel-slide img {
+    height: 40vh;
+  }
+  .carousel-title {
+    width: 94vw;
+  }
+
+  .text-block, .text-block p, .section-text, .section-text p, .tagline, .footer-block, .footer-block p {
+    text-align: justify;
+  }  
+
+  .text-block {
+    margin: 0.5rem;
+  }
+
+  .carousel-slide {
+    flex: 0 0 calc(100% - 0.75rem);
+  }
+
+
+  .carousel-btn {
+    padding: 0 0.5rem;
+  }
+}
