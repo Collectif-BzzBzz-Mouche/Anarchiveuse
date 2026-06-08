@@ -211,31 +211,6 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
                         INFORMATIONS
 ============================================================ */
 
-.audio {
-  position: relative;
-  padding: 2rem;
-}
-
-.audio h3 {
-  font-family: 'Garabosse', sans-serif;
-  font-size: clamp(14px, 1.5vw, 24px);
-  font-weight: bold;
-  color: #463838;
-  -webkit-text-stroke: 4px #B6F772;
-  paint-order: stroke fill;
-  margin-bottom: 0.5rem;
-}
-
-.audio h2 {
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-size: clamp(14px, 1.5vw, 24px);
-  font-weight: bold;
-  background-color: #B6F772;
-  paint-order: stroke fill;
-  margin-bottom: 0.5rem;
-  display: inline-block;
-}
-
 .infos {
   position: relative;
   padding: 2rem;
@@ -249,7 +224,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   background-color: #B6F772;
   line-height: 1.2;
   margin-bottom: 1rem;
-  display: inline;
+  display: block;
 }
 
 .infos h3 {
@@ -259,7 +234,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   color: #463838;
   -webkit-text-stroke: 4px #B6F772;
   paint-order: stroke fill;
-  margin-bottom: 0.5rem;
+  padding-top: 2vh;
 }
 
 .infos p {
@@ -290,6 +265,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   margin-right: 0.5rem;
   margin-bottom: 1.5rem;
   border: none;
+  display: inline-block;
 }
 
 .infos button:hover {
@@ -339,13 +315,13 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 ============================================================ */
 
 @media (max-width: 1200px) {
-  .grille-videos { grid-template-columns: repeat(4, 1fr); }
+  .grille-videos { grid-template-columns: repeat(3, 1fr); }
 
   .video-wrapper { height: 60vh; }
 }
 
 @media (max-width: 900px) {
-  .grille-videos { grid-template-columns: repeat(3, 1fr); }
+  .grille-videos { grid-template-columns: repeat(2, 1fr); }
 
   .video-wrapper {
     height: 28vh !important;
@@ -376,6 +352,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   .infos button {
     font-size: clamp(11px, 1vw, 16px);
     padding: 0.8rem 1.4rem;
+    display: block;
     width: 100%;
     margin-right: 0;
     margin-bottom: 0.8rem;
@@ -396,6 +373,5 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
     height: 20vh !important;
     max-height: 25vh !important;
   }
-  .grille-videos { grid-template-columns: repeat(2, 1fr); }
 
 }

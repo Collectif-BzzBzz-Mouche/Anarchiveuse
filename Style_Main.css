@@ -147,7 +147,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   width: 100%;
-  background-image: url(images/Fond_Galerie.webp);
+  background-image: url(images/rosevert_vert3.webp);
 }
 
 .grille a {
@@ -162,12 +162,12 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   height: 100%;
   object-fit: cover; 
   display: block;
-  transition: filter 1s ease;
-  mix-blend-mode:color-burn;
+  mix-blend-mode:lighten;
 }
 
 .grille a:hover img {
   mix-blend-mode:normal;
+  transition: filter 1s ease;
 }
 
 .grille a .overlay {
