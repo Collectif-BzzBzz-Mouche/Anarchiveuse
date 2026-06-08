@@ -192,7 +192,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   font-size: clamp(14px, 1.5vw, 24px);
   color: #ffffff;
   margin: 0;
-  -webkit-text-stroke: 6px #E967DB;
+  -webkit-text-stroke: 6px #7562C7;
   paint-order: stroke fill;
 }
 
@@ -201,7 +201,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   font-size: clamp(11px, 1vw, 16px);
   color: #ffffff;
   margin: 0;
-  -webkit-text-stroke: 6px #E967DB;
+  -webkit-text-stroke: 6px #7562C7;
   paint-order: stroke fill;
 }
 
@@ -218,6 +218,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   z-index: 500;
   box-sizing: border-box;
   overflow: hidden;
+  z-index: 999;
 }
 
 .popup-box.is-open {
@@ -265,7 +266,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 .popup-box p {
   font-family: 'Garabosse', sans-serif;
   font-size: clamp(11px, 1vw, 16px);
-  color: #000000;
+  color: #463838;
   -webkit-text-stroke: 6px #95D8EF;
   paint-order: stroke fill;
   line-height: 1;
@@ -277,7 +278,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   top: 12px;
   right: 16px;
   font-family: 'BianzhidaiPearl', sans-serif;
-  color: #000000;
+  color: #463838;
   text-decoration: none;
   font-size: clamp(10px, 1.8vw, 16px);
 }
