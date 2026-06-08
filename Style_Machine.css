@@ -291,6 +291,7 @@ body {
   paint-order: stroke fill;
   text-align: center;
   padding-top: 2vh;
+  padding-bottom: 4vh;
 }
 
 .bloc-texte strong {
@@ -311,6 +312,12 @@ body {
   padding-top: 4vh;
   align-items: center;
   width: 100%;
+}
+
+.banner video {
+  width: 100%;
+  padding-top: 4vh;
+padding-bottom: 8vh;
 }
 
 /* ============================================================
@@ -546,6 +553,7 @@ body {
 
   .carte h3 {
     font-size: clamp(14px, 1.5vw, 24px);
+    padding-bottom: 4vh;
   }
 
   .carte h4 {
