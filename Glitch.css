@@ -1,0 +1,68 @@
+/* ============================================================
+                    FOND GLITCH ANIMÉ (réutilisable)
+   Usage : <div class="glitch-bg glitch-bg--bleu"></div>
+   dans un parent portant la classe .glitch-zone
+   (le dessin est généré par Glitch.js dans un <canvas>)
+============================================================ */
+
+/* --- Palette (lue aussi par Glitch.js) --- */
+:root {
+  --g-violet: #7562C7;
+  --g-vert:   #B6F772;
+  --g-bleu:   #95D8EF;
+  --g-brun:   #463838;
+  --g-blanc:  #ffffff;
+  --g-rose:   #E967DB;
+  --g-noir:   #000000;
+}
+
+/* Le parent : il doit avoir une hauteur (height, min-height ou aspect-ratio) */
+.glitch-zone {
+  position: relative;
+  isolation: isolate;   /* le fond reste derrière le contenu du parent */
+  overflow: hidden;
+}
+
+/* --- Le fond --- */
+.glitch-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--g-base, var(--g-blanc)); /* couleur affichée avant le chargement du JS */
+}
+
+/* Pour un fond de page entière (remplace un background-image du body) */
+.glitch-bg--fixed {
+  position: fixed;
+}
+
+/* --- Couleur affichée avant le chargement du JS (les effets et palettes
+       détaillés sont dans Glitch.js) ---
+   Mouche   : glitch-bg--bleu (ou --violet, --vert, --sombre)
+   Machine  : glitch-bg--scan
+   Archives : glitch-bg--mosaic */
+.glitch-bg--bleu   { --g-base: var(--g-blanc);  }
+.glitch-bg--violet { --g-base: var(--g-violet); }
+.glitch-bg--vert   { --g-base: var(--g-blanc);  }
+.glitch-bg--sombre { --g-base: var(--g-brun);   }
+.glitch-bg--scan   { --g-base: var(--g-brun);   }
+.glitch-bg--mosaic { --g-base: var(--g-blanc);  }
+
+/* --- Fond au choix : <div class="glitch-bg glitch-bg--scan" data-bg="noir"> ---
+   (couleur affichée avant le chargement du JS ; le JS gère le reste) */
+.glitch-bg[data-bg="noir"]   { --g-base: var(--g-noir);   }
+.glitch-bg[data-bg="blanc"]  { --g-base: var(--g-blanc);  }
+.glitch-bg[data-bg="brun"]   { --g-base: var(--g-brun);   }
+.glitch-bg[data-bg="violet"] { --g-base: var(--g-violet); }
+
+/* --- Le canvas : pixels nets, comme un vrai glitch --- */
+.glitch-bg canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+}

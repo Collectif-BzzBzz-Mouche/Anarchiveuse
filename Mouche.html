@@ -6,8 +6,16 @@
   <title>Collectif Mouche</title>
   <link rel="icon" type="image/x-icon" href="/images/cursor.png">
   <link rel="stylesheet" href="Style_Mouche.css" />
+  <link rel="stylesheet" href="Glitch.css" />
 </head>
 <body>
+
+<!-------------------------------------------------------------
+                        FOND GLITCH
+-------------------------------------------------------------->
+<div class="glitch-bg glitch-bg--fixed glitch-bg--bleu" data-grain="0.06" data-blur="2"></div>
+<script src="Glitch.js"></script>
+
 <!-------------------------------------------------------------
                       TRAINEE SOURIS        
 -------------------------------------------------------------->
@@ -77,69 +85,68 @@
                           MENU         
 -------------------------------------------------------------->
 <header class="topnav">
-  <div class="nav-item">
-    <a href="index.html" data-text="Anarchives">Anarchives</a>
-    <a href="Machine.html" data-text="Machine" data-popup="popup-machine">Machine</a>    
-    <a href="Mouche.html" data-text="Mouche" data-popup="popup-mouche">Mouche</a>
+    
+    <div class="nav-item">
+    <a href="Machine.html" data-text="La Machine">La Machine</a>
+    </div>  
 
-  </div>
+    <div class="nav-item">
+    <a href="Anarchives.html" data-text="Les Anarchives">Les Anarchives</a>
+    </div>
+  
+    <div class="nav-item">
+    <a href="Mouche.html" data-text="Le Collectif">Le Collectif</a>
+    </div>
+
 </header>
 
 <!-------------------------------------------------------------
                           TITRE         
 -------------------------------------------------------------->
   <div class="banner">
+    <img src="images/logo_mouche_lettres.webp">
     <p class="tagline">
-      Mouche est un collectif pluridisciplinaire d'exploration de nouvelles narratives.
+      Mouche est un collectif pluridisciplinaire qui choisit de ne plus conter en ligne droite mais en zig-zag. Nous tenons à explorer de nouvelles typologies fictionnelles, des moyens d’investir des récits invisibilisés qui sont autant de traces à transmettre, recomposer, mixer et frictionner pour chercher à créer des alternatives possibles.
     </p>
-  </div>
-
-<!-------------------------------------------------------------
-                          BANNIERE         
--------------------------------------------------------------->
-  <div class="img-banner img-banner--vert">
-    <img src="images/vertviolet.webp" alt="Bannière 1" />
   </div>
 
 <!-------------------------------------------------------------
                           TEXT BLOCK         
 -------------------------------------------------------------->
   <div class="text-block">
-    <p>À travers la curation d'archives, nous développons des protocoles de création
-      qui questionnent les formes de narration dominantes et valorisent des récits invisibilisés
-      dans lesquels les spectateurices deviennent des<strong>activateur.ices</strong>
-    </p>
+    <img src="images/Expo/Retouches__18.png">
+    <p>“Se projeter dans le futur peut être sérieux, inquiétant voire  déprimant. Comment pourrait-on le concevoir autrement, déplacer nos imaginaires ? Pourquoi ne pas envisager des moyens de résistance subsistant au déni et au cynisme par le rire, le jeu et l’expérimentation ?”</p>
   </div>
 
 <!-------------------------------------------------------------
                           TEASER         
 -------------------------------------------------------------->
-  <div class="section-video">
-    <img src="images/Fond_Video.webp" alt="" />
-    <div class="section-content">
-      <div class="section-text">
-        <p>Les outils numériques y sont envisagés comme des 
-          <span class="highlight">espaces d'expérimentation</span>, 
-          de dialogue et de <strong>mise en œuvre</strong> 
-          d'images peu partagées.</p>
-      </div>
-      <h2 class="section-titre">Manifeste vidéo</h2>
-      <div class="video-wrapper">
-        <iframe src="https://player.vimeo.com/video/1192652286" 
-                frameborder="0" allowfullscreen>
-        </iframe>
-      </div>
+ <div class="section-video">
+  <div class="section-content">
+    <div class="section-text">
+      <p>Mouche envisage les outils numériques comme des
+        <span class="highlight">espaces d'expérimentation</span>,
+        de dialogue et de mise en œuvre d'images peu partagées.</p>
+    </div>
+    <div class="video-wrapper" id="video-wrapper">
+      <iframe id="yt-player"
+  src="https://www.youtube.com/embed/7g-rvTDv3MI?si=YSQLdDiWKwPyg5oH" title="YouTube video player"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allow="autoplay; encrypted-media; picture-in-picture"
+  allowfullscreen>
+</iframe>
     </div>
   </div>
+</div>
 
 <!-------------------------------------------------------------
                           CARROUSEL         
 -------------------------------------------------------------->
   <section class="carousel-section">
-    <h2 class="section-title carousel-title">Exposition du manifeste au CENTQUATRE</h2>
-
+    <h2 class="section-title carousel-title">Manifeste du collectif</h2>
+    <p>Le manifeste du collectif, une pellicule-abécédaire présentée ci-dessous, offre un aperçu des premières intentions curatoriales : une archéologie des récits et des médias, explorant les porosités entre des imaginaires pluriels aux liens potentiellement incongrus.</p>
     <div class="carousel-outer">
-      <button class="carousel-btn" id="prev-btn"></button>
+      <button class="carousel-btn" id="prev-btn">&lt;</button>
       <div class="carousel-window">
         <div class="carousel-track" id="carousel-track">
           <div class="carousel-slide">
@@ -180,7 +187,7 @@
           </div>
         </div>
       </div>
-      <button class="carousel-btn" id="next-btn">></button>
+      <button class="carousel-btn" id="next-btn">&gt;</button>
     </div>
   </section>
 
@@ -321,17 +328,19 @@
 <!-------------------------------------------------------------
                           FOOTER         
 -------------------------------------------------------------->
-  <div class="footer-block">
-    <p>Imaginé par</p>
+<div class="footer-block">
+  <div class="footer-credits">
     <h4><strong>Ornella Antony</strong></h4>
     <h4><span class="highlight">Gaspard Calais</span></h4>
     <h4><strong>Loane De Almeida Costa</strong></h4>
     <h4><span class="highlight">Ulysse Migeat</span></h4>
-    <div class="footer-block-logos">
-      <img src="images/logo_mouche_traits.webp" alt="Logo Mouche" />
-      <img src="images/DCN.webp" alt="Logo DCN" />
-    </div>
   </div>
+
+  <div class="footer-block-logos">
+    <img src="images/logo_mouche_traits.webp" alt="Logo Mouche" />
+    <img src="images/DCN.webp" alt="Logo DCN" />
+  </div>
+</div>
 
 </body>
 </html>

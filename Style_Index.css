@@ -1,0 +1,170 @@
+/* ============================================================
+                            BODY
+============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  cursor: url('images/cursor.png') 0 0, auto;
+}
+
+a, button, .nav-item, .nav-item > a {
+  cursor: url('images/cursor_hover.png') 0 0, pointer !important;
+}
+
+/* ============================================================
+                            FONTS
+============================================================ */
+
+@font-face {
+  font-family: 'BianzhidaiMessy';
+  src: url('fonts/bianzhidai_noBG-Messy.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BianzhidaiPearl';
+  src: url('fonts/bianzhidai_noBG-Pearl.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ============================================================
+                BACKGROUND VIDEO + IMAGE
+============================================================ */
+
+.hero {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000; 
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-image {
+  position: relative;
+  z-index: 1;
+  max-width: 60vw;
+  max-height: 60vh;
+  height: auto;
+  pointer-events: none;
+}
+
+/* ============================================================
+                          BOUTON SON
+============================================================ */
+
+.sound-btn {
+  position: absolute;
+  top: 3vh;
+  right: 3vw;
+  z-index: 2;
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(10px, 1.8vw, 16px);
+  color: #463838;
+  background-color: #B6F772;
+  box-shadow: 4px 4px 4px 0px #7562C7;
+  border: none;
+  padding: 0.4em 1.8em;
+}
+
+/* ============================================================
+                            MENU
+============================================================ */
+
+.topnav {
+  background-color: rgba(255, 255, 255, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8vw;
+  width: clamp(350px, 64vw, 680px);
+  height: 6vh;
+  position: fixed;
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  white-space: nowrap;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.nav-item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item > a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(100px, 14vw, 200px);
+  text-align: center;
+  font-family: 'BianzhidaiPearl', sans-serif;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: clamp(9px, 2vw, 18px);
+  position: relative;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.nav-item > a::after {
+  content: attr(data-text);
+  font-family: 'BianzhidaiMessy', sans-serif;
+  font-size: clamp(7px, 1.8vw, 14px);
+  color: #463838;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.topnav:hover .nav-item > a:hover {
+  color: transparent;
+}
+
+.topnav:hover .nav-item > a:hover::after {
+  opacity: 1;
+}
+
+/* ============================================================
+                          RESPONSIVE
+============================================================ */
+
+@media (max-width: 600px) {
+  .hero-image {
+    max-width: 80vw;
+    max-height: 50vh;
+  }
+}
+
+@media (hover: none) {
+  .topnav {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px 10px #ffffff;
+  }
+  .nav-item > a {
+    color: #463838;
+    text-shadow: none;
+  }
+}

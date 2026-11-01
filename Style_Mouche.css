@@ -1,5 +1,20 @@
 /* ============================================================
-                            BODY
+                          VARIABLES
+============================================================ */
+:root {
+  /* Largeur de tout le contenu de la page (90vw sur mobile, voir plus bas) */
+  --page-w: 80vw;
+
+  /* Hauteur minimale de chaque section : elle s'agrandit si son contenu est plus grand */
+  --h-banner:   100vh;
+  --h-text:     30vh;
+  --h-video:    100vh;
+  --h-carousel: 70vh;
+  --h-footer:   40vh;
+}
+
+/* ============================================================
+                            BASE
 ============================================================ */
 * {
   margin: 0;
@@ -11,10 +26,9 @@ html, body {
   overflow-y: scroll;
   overflow-x: hidden;
   cursor: url('images/cursor.png') 0 0, auto;
-  background-image: url(images/Fond_Bleu.webp);
 }
 
-a, button, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], label[for], select, .nav-item, .nav-item > a, .dropdown a, .grille a, .popup-close, .popup-machine-lien, .popup-mouche-lien, [onclick], [tabindex], .carousel-slide, .carousel-btn, .lightbox-close, .lightbox-nav {
+a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-close, .lightbox-nav {
   cursor: url('images/cursor_hover.png') 0 0, pointer !important;
 }
 
@@ -51,6 +65,23 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 }
 
 /* ============================================================
+                            SECTIONS
+============================================================ */
+
+.banner,
+.text-block,
+.section-video,
+.carousel-section,
+.footer-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* centré verticalement   */
+  width: var(--page-w);
+  margin-inline: auto;       /* la colonne est centrée dans la page */
+  text-align: center;
+}
+
+/* ============================================================
                             MENU
 ============================================================ */
 
@@ -61,19 +92,17 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   align-items: center;
   gap: 0.8vw;
   width: clamp(350px, 64vw, 680px);
-  height: 6vh;                                  
+  height: 6vh;
   position: fixed;
-  top: 6dvh;
-  left: 50%;   
-  transform: translate(-50%, -50%);
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 999;
   box-shadow: 0px 0px 10px 10px #ffffff;
-  overflow: visible;
   white-space: nowrap;
 }
 
 .nav-item {
-  position: relative;
   height: 100%;
   display: flex;
   align-items: center;
@@ -84,10 +113,9 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(100px, 14vw, 200px);        
-  text-align: center; 
-  font-family: 'BianzhidaiPearl', sans-serif; 
-  rotate: random;
+  width: clamp(100px, 14vw, 200px);
+  text-align: center;
+  font-family: 'BianzhidaiPearl', sans-serif;
   color: #463838;
   text-decoration: none;
   font-size: clamp(9px, 2vw, 18px);
@@ -97,103 +125,74 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 .nav-item > a::after {
   content: attr(data-text);
   font-family: 'BianzhidaiMessy', sans-serif;
-  font-size: clamp(7px, 1.8vw, 14px);       
+  font-size: clamp(7px, 1.8vw, 14px);
   color: #463838;
   position: absolute;
-  inset: 0;                                  
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;                                 
+  opacity: 0;
 }
 
 .nav-item > a:hover { color: transparent; }
 .nav-item > a:hover::after { opacity: 1; }
-
-.dropdown a:hover {
-  color: #7562C7;
-}
 
 /* ============================================================
                         BANNIERE
 ============================================================ */
 
 .banner {
-  background-image: url(images/Header_Mouche.webp);
-  background-size: cover;
-  background-position: center;
+  min-height: var(--h-banner);
+  gap: 5vh;
+  align-items: center;
+}
+
+.banner img {
   width: 100%;
-  height: 94vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 4vh;
-  
 }
 
 .tagline {
   font-family: 'Garabosse', sans-serif;
-  font-size: clamp(20px, 1.8vw, 33px);
-  text-align: center;
+  font-size: clamp(24px, 2vw, 40px);
   color: #000000;
-  line-height: 1.5;
-  -webkit-text-stroke: 6px #95D8EF;
+  line-height: 1.2;
+  -webkit-text-stroke: 1.5px #000000;
   paint-order: stroke fill;
-  width: 94vw;
+  width: 92%;
 }
 
 /* ============================================================
-                        BLOCS TEXTE
+                        BLOC TEXTE
 ============================================================ */
 
 .text-block {
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
-  text-align: center;
-  margin: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+  min-height: var(--h-text);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  margin-block: clamp(1rem, 2vw, 1.5rem);
+  flex-direction: row;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
 }
 
 .text-block p {
+  flex: 2 1 0;
+  min-width: 0;
   font-family: 'Garabosse', sans-serif;
+  text-align: left;
   font-weight: bold;
-  font-size: clamp(20px, 1.8vw, 30px);
+  font-size: clamp(24px, 2vw, 42px);
   color: #000000;
-  line-height: 1.7;
-  -webkit-text-stroke: 6px #B6F772;
+  line-height: 1.2;
+  -webkit-text-stroke: 4px #95D8EF;
   paint-order: stroke fill;
 }
 
-.text-block strong {
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-weight: normal;
-  font-size: clamp(20px, 1.8vw, 33px);
-  background-color: #B6F772;
-  -webkit-text-stroke: 0;
-}
-
-.text-block .highlight {
-  font-family: 'BianzhidaiCloud', sans-serif;
-  font-weight: normal;
-  font-size: clamp(22px, 1.8vw, 33px);
-  background-color: #B6F772;
-  -webkit-text-stroke: 0;
-}
-
-/* ============================================================
-                        BANNIÈRES IMAGES
-============================================================ */
-
-.img-banner {
+.text-block > img {
+  flex: 1 1 0;
+  min-width: 0;
   width: 100%;
-  height: clamp(200px, 30vh, 400px);
-  overflow: hidden;
-  position: relative;
-}
-
-.img-banner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
   display: block;
 }
 
@@ -202,23 +201,15 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 ============================================================ */
 
 .section-video {
-  position: relative;
-  width: 100%;
-}
-
-.section-video img {
-  width: 100%;
-  height: clamp(120vh, 140vh, 180vh);
-  object-fit: cover;
-  display: block;
+  min-height: var(--h-video);
+  padding-bottom: 4vh;
 }
 
 .section-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
@@ -229,26 +220,24 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 .section-text p {
   font-family: 'Garabosse', sans-serif;
   font-weight: bold;
-  font-size: clamp(20px, 1.8vw, 33px);
+  font-size: clamp(24px, 2vw, 42px);
   color: #000000;
-  line-height: 1.7;
-  -webkit-text-stroke: 6px #B6F772;
+  line-height: 1.2;
+  -webkit-text-stroke: 4px #9583FF;
   paint-order: stroke fill;
-  padding-top: 12vh;
-  padding-bottom: 6vh;
 }
 
 .section-text strong {
   font-family: 'BianzhidaiPearl', sans-serif;
   font-weight: normal;
-  background-color: #B6F772;
+  background-color: #9583FF;
   -webkit-text-stroke: 0;
 }
 
 .section-text .highlight {
   font-family: 'BianzhidaiCloud', sans-serif;
   font-weight: normal;
-  background-color: #B6F772;
+  background-color: #9583FF;
   -webkit-text-stroke: 0;
 }
 
@@ -258,14 +247,13 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   font-weight: normal;
   font-size: clamp(24px, 2.5vw, 34px);
   background-color: #95D8EF;
-  padding: 1vh;
   margin-bottom: 2vh;
 }
 
 .video-wrapper {
-  width: 90%;
+  width: 100%;
   aspect-ratio: 16 / 9;
-  margin: 4%;
+  margin-block: 4%;
 }
 
 .video-wrapper iframe {
@@ -278,26 +266,38 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 ============================================================ */
 
 .carousel-section {
-  padding: clamp(2rem, 4vw, 4rem) 0;
-  text-align: center;
+  min-height: var(--h-carousel);
+  padding-block: clamp(2rem, 4vw, 4rem);
   overflow: hidden;
 }
 
 .carousel-title {
   display: inline-block;
-  font-family: 'BianzhidaiCloud', sans-serif;
+  align-self: center;
+  font-family: 'BianzhidaiPearl', sans-serif;
   font-weight: normal;
-  font-size: clamp(24px, 2.5vw, 34px);
-  background-color: #9583FF;
-  padding: 1vh;
-  margin-bottom: 2vh;
+  font-size: clamp(24px, 1.6vw, 34px);
+  color: #ffffff;
+  background-color: #463838;
+  padding: 4vh;
+  margin-bottom: 4vh;
+}
+
+.carousel-section p {
+  font-family: 'Garabosse', sans-serif;
+  font-weight: bold;
+  font-size: clamp(20px, 1.2vw, 32px);
+  color: #ffffff;
+  line-height: 1.4;
+  -webkit-text-stroke: 8px #463838;
+  paint-order: stroke fill;
+  padding-bottom: 2vh;
 }
 
 .carousel-outer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
   width: 100%;
 }
 
@@ -306,13 +306,10 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   border: none;
   font-family: 'BianzhidaiPearl', sans-serif;
   font-size: clamp(16px, 2vw, 28px);
-  color: #000000;
-  cursor: pointer;
+  color: #463838;
   flex-shrink: 0;
-  z-index: 10;
   padding: 0 1rem;
   line-height: 1;
-  align-self: center;
 }
 
 .carousel-window {
@@ -328,7 +325,6 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 
 .carousel-slide {
   flex: 0 0 calc(33.333% - 1rem);
-  cursor: pointer;
   opacity: 0.8;
   transition: opacity 0.4s ease, transform 0.4s ease;
   transform: scale(0.95);
@@ -345,6 +341,10 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   object-fit: cover;
   display: block;
 }
+
+/* ============================================================
+                          LIGHTBOX
+============================================================ */
 
 .lightbox {
   display: none;
@@ -379,7 +379,6 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 50%;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -399,7 +398,6 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   border: none;
   color: #ffffff;
   font-size: clamp(1.4rem, 3vw, 2.2rem);
-  cursor: pointer;
   padding: 1rem 1.5rem;
   opacity: 0.7;
   transition: opacity 0.2s;
@@ -423,8 +421,25 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 ============================================================ */
 
 .footer-block {
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
+  min-height: var(--h-footer);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  flex-direction: row;
+  justify-content: space-between;   /* names at the far left, logos at the far right */
+  align-items: center;
+  gap: 2rem;
   text-align: left;
+}
+
+.footer-credits {
+  text-align: left;
+}
+
+.footer-block-logos {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+  height: 8vh;
 }
 
 .footer-block p {
@@ -433,7 +448,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   font-size: clamp(14px, 1.2vw, 20px);
   color: #000000;
   margin-bottom: 0.5rem;
-  -webkit-text-stroke: 6px #E967DB;
+  -webkit-text-stroke: 6px #9583FF;
   paint-order: stroke fill;
 }
 
@@ -444,31 +459,23 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 }
 
 .footer-block strong {
-  font-family: 'BianzhidaiPearl', sans-serif;
+  font-family: 'BianzhidaiCloud', sans-serif;
   font-weight: normal;
-  -webkit-text-stroke: 6px #E967DB;
+  -webkit-text-stroke: 6px #9583FF;
   paint-order: stroke fill;
-  background-color: #E967DB;
+  background-color: #9583FF;
 }
 
 .footer-block .highlight {
-  font-family: 'BianzhidaiCloud', sans-serif;
+  font-family: 'BianzhidaiPearl', sans-serif;
   font-weight: normal;
-  -webkit-text-stroke: 6px #E967DB;
+  -webkit-text-stroke: 6px #9583FF;
   paint-order: stroke fill;
-  background-color: #E967DB;
-}
-
-.footer-block-logos {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  gap: 2rem;
-  margin-top: 2rem;
+  background-color: #9583FF;
 }
 
 .footer-block-logos img {
-  height: clamp(30px, 4vw, 60px);
+  height: clamp(40px, 8vw, 80px);
   width: auto;
 }
 
@@ -477,52 +484,40 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 ============================================================ */
 
 @media (max-width: 768px) {
-  .body {
-    width: 94vw;
+
+  /* Largeur de la page et hauteurs des sections sur mobile (à modifier ici) */
+  :root {
+    --page-w:     90vw;
+    --h-banner:   100vh;
+    --h-text:     auto;
+    --h-video:    auto;
+    --h-carousel: auto;
+    --h-footer:   auto;
   }
 
-  .bloc-titre-img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    height: 25vh;
+  /* Bloc texte : les deux colonnes s'empilent (texte puis image) */
+  .text-block {
+    flex-direction: column;
+    margin-block: 0.5rem;
   }
 
-  .bloc-titre-img img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    margin: 0;
+  .text-block p,
+  .text-block > img {
+    flex: 0 0 auto;
   }
 
-  .banner {
-    background-image: url('images/Header_Mouche_mobile.webp');
-    background-size: cover;
-    background-position: center bottom;
-    height: 40vh;
-    aspect-ratio: 7/8;
-  }
-
-  .section-video {
-    position: static;
-  }
-
-  .section-video img {
-    display: none;
+  /* Paragraphes justifiés */
+  .text-block p,
+  .section-text p {
+    text-align: justify;
   }
 
   .section-content {
-    position: static;
-    transform: none;
-    margin: 0 auto;
     padding: 2rem 0;
   }
 
   .section-text p {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-block: 2rem;
   }
 
   .video-wrapper {
@@ -530,25 +525,17 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
     padding-bottom: 5%;
   }
 
-  .carousel-slide img {
-    height: 40vh;
-  }
   .carousel-title {
-    width: 94vw;
-  }
-
-  .text-block, .text-block p, .section-text, .section-text p, .tagline, .footer-block, .footer-block p {
-    text-align: justify;
-  }  
-
-  .text-block {
-    margin: 0.5rem;
+    width: 100%;
   }
 
   .carousel-slide {
     flex: 0 0 calc(100% - 0.75rem);
   }
 
+  .carousel-slide img {
+    height: 40vh;
+  }
 
   .carousel-btn {
     padding: 0 0.5rem;
