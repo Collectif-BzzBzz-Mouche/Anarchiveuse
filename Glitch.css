@@ -48,6 +48,8 @@
 .glitch-bg--vert   { --g-base: var(--g-blanc);  }
 .glitch-bg--sombre { --g-base: var(--g-brun);   }
 .glitch-bg--scan   { --g-base: var(--g-brun);   }
+.glitch-bg--machine { --g-base: var(--g-blanc); }
+.glitch-bg--taches  { --g-base: var(--g-blanc); }
 .glitch-bg--mosaic { --g-base: var(--g-blanc);  }
 
 /* --- Fond au choix : <div class="glitch-bg glitch-bg--scan" data-bg="noir"> ---

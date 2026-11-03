@@ -4,7 +4,7 @@
 // Grain et flou (facultatifs) : data-grain="0.15" (0 à 1) et data-blur="2" (en px)
 //   <div class="glitch-bg glitch-bg--scan" data-grain="0.15" data-blur="1.5"></div>
 //   <div class="glitch-bg glitch-bg--bleu"></div>    -> Mouche   : taches "datamosh"
-//   <div class="glitch-bg glitch-bg--scan"></div>    -> Machine  : écran cathodique / scanlines
+//   <div class="glitch-bg glitch-bg--machine"></div> -> Machine  : taches vert / rose / marron sur blanc (ou --taches : bleu)
 //   <div class="glitch-bg glitch-bg--mosaic"></div>  -> Archives : mosaïque compressée
 (() => {
   'use strict';
@@ -25,11 +25,16 @@
     // --- effet "scan" (Machine) : fond sombre, lignes de balayage, bruit et barre de suivi ---
     scan:   { effect: 'scan',     fps: 12, colors: { bg: 'brun', lines: ['vert', 'violet', 'bleu'], noise: ['blanc', 'bleu', 'vert'] } },
 
+    // --- effet "taches" : fond blanc, taches douces + rose + blocs marron (d'après tes images) ---
+    //     scale : taille des pixels (plus petit = plus fin, plus lourd) / maxW : largeur max du dessin
+    machine: { effect: 'taches',   fps: 8,  scale: 2, maxW: 720, smooth: true, colors: { bg: 'blanc', main: 'jaune', accent: 'rose',   dark: 'vert' } },
+    taches:  { effect: 'taches',   fps: 8,  scale: 2, maxW: 512, smooth: true, colors: { bg: 'blanc', main: 'bleu', accent: 'violet', dark: 'brun' } },
+
     // --- effet "mosaic" (Anarchives) : cases de pixels, déchirures, blocs figés ---
     mosaic: { effect: 'mosaic',   fps: 6,  colors: { bg: 'blanc', levels: ['bleu', 'violet', 'rose'], dark: 'brun', blocks: ['rose', 'vert', 'violet', 'bleu'] } }
   };
 
-  const FALLBACK = { violet: '#7562C7', vert: '#B6F772', bleu: '#95D8EF', brun: '#463838', blanc: '#ffffff', rose: '#E967DB', noir: '#000000' };
+  const FALLBACK = { violet: '#7562C7', vert: '#B6F772', bleu: '#95D8EF', brun: '#463838', blanc: '#ffffff', rose: '#E967DB', noir: '#000000', jaune: '#ffe868'};
 
   /* ============================================================
      OUTILS PARTAGÉS
@@ -40,8 +45,7 @@
   const noise = new Float32Array(N * N);
 
   // <noise>
-  function buildNoise(out, N) {
-    const octaves = [[4, 0.6], [8, 0.8], [16, 0.7], [32, 0.5], [64, 0.35]];
+  function buildNoise(out, N, octaves = [[4, 0.6], [8, 0.8], [16, 0.7], [32, 0.5], [64, 0.35]]) {
     out.fill(0);
     for (const [g, amp] of octaves) {
       const grid = new Float32Array(g * g);
@@ -239,7 +243,7 @@
   ============================================================ */
   function scan(s, C) {
     let bar = 0;
-    const darkBg = lum(C.bg) < 60;
+    const darkBg = lum(C.bg) < 20;
 
     return function frame() {
       const { W, H, d } = s;
@@ -347,7 +351,145 @@
     };
   }
 
-  const EFFECTS = { datamosh, scan, mosaic };
+
+  /* ============================================================
+     EFFET 4 : TACHES (Machine)
+     d'après les images de fond : fond blanc, taches douces avec halo,
+     rose à l'intérieur du vert, blocs marron carrés, fines stries
+     verticales, coutures horizontales et ligne verticale fine
+  ============================================================ */
+
+  // Texture plus grande (512 px) pour que le motif ne se répète pas.
+  // Calculée seulement si cet effet est utilisé.
+  let BIG = null;
+  function bigField() {
+    if (BIG) return BIG;
+    const M = 512, f = new Float32Array(M * M);
+    buildNoise(f, M, [[8, 0.6], [16, 0.8], [32, 0.7], [64, 0.5], [128, 0.35]]);
+    const sub = new Float32Array(M * M / 4);
+    for (let i = 0; i < sub.length; i++) sub[i] = f[i * 4];
+    sub.sort();
+    BIG = { f, M, pct: p => sub[Math.min(sub.length - 1, Math.floor(sub.length * p))] };
+    return BIG;
+  }
+
+  function taches(s, C) {
+    const { f: F, M, pct: bp } = bigField();
+    const MASK = M - 1;
+
+    const COVER = 0.24;   // part de l'écran couverte par les taches (0 à 1)
+    const PINK  = 0.32;   // part de rose, à l'intérieur des taches
+    const DARK  = 0.04;   // part de blocs marron
+    const JIT   = 0.08;   // grain sur les bords
+    const SPECK = 0.0025; // petits points marron isolés
+    const BS    = 3;      // blocs marron : 2^2 = 4 pixels de côté
+
+    const TA = bp(1 - COVER), TS = bp(1 - COVER * 0.3);   // halo -> cœur de la tache
+    const TP = bp(1 - PINK),  TPS = bp(1 - PINK * 0.55);
+    const TD = bp(1 - DARK);
+    const sm = t => t * t * (3 - 2 * t);
+    const [bgR, bgG, bgB] = C.bg, [mR, mG, mB] = C.main, [aR, aG, aB] = C.accent;
+    const [dR, dG, dB] = C.dark;
+
+    let ox = 0, oy = 0, line = null;
+    let colNoise, rowOx, rowOy, bands = [];
+
+    return function frame() {
+      const { W, H, d } = s;
+      if (!colNoise || colNoise.length !== W) {
+        colNoise = new Float32Array(W);
+        for (let x = 0; x < W; x++) colNoise[x] = rnd() - 0.5;
+      }
+      if (!rowOx || rowOx.length !== H) { rowOx = new Int16Array(H); rowOy = new Int16Array(H); bands = []; }
+
+      // dérive lente + sauts occasionnels
+      ox += 1;
+      if (rnd() < 0.08) { ox += ((rnd() - 0.5) * 40) | 0; oy += ((rnd() - 0.5) * 20) | 0; }
+
+      // fines stries verticales : quelques colonnes changent à chaque image
+      for (let x = 0; x < W; x++) if (rnd() < 0.1) colNoise[x] = rnd() - 0.5;
+
+      // coutures : bandes horizontales dont la texture est décalée
+      while (bands.length < 5) bands.push(null);
+      const k = (rnd() * bands.length) | 0;
+      if (!bands[k] || rnd() < 0.3) {
+        bands[k] = { y0: (rnd() * H) | 0, h: (H * (0.04 + rnd() * 0.16)) | 0,
+                     dx: ((rnd() - 0.5) * 90) | 0, dy: ((rnd() - 0.5) * 30) | 0 };
+      }
+      rowOx.fill(0); rowOy.fill(0);
+      for (const b of bands) {
+        if (!b) continue;
+        for (let y = b.y0; y < Math.min(H, b.y0 + b.h); y++) { rowOx[y] = b.dx; rowOy[y] = b.dy; }
+      }
+
+      // dessin pixel par pixel
+      let p = 0;
+      for (let y = 0; y < H; y++) {
+        const yy = y + oy + rowOy[y], xo = ox + rowOx[y];
+        const ny = (yy & MASK) * M;
+        const ny2 = ((yy + 211) & MASK) * M;
+        const nby = ((((y >> BS) << BS) + oy + rowOy[y]) & MASK) * M;
+        for (let x = 0; x < W; x++, p += 4) {
+          const sx = x + xo;
+          const v = F[ny + (sx & MASK)] + (rnd() - 0.5) * JIT + colNoise[x] * 0.05;
+
+          let r = bgR, g = bgG, b = bgB;
+          let a = 0, dark = false;
+          if (v > TA) {
+            a = v >= TS ? 1 : sm((v - TA) / (TS - TA));       // halo doux puis cœur
+            const n2 = F[ny2 + ((sx + 307) & MASK)];
+            const am = a * Math.min(1, 0.3 + 1.0 * n2);        // vert plus ou moins pâle
+            r += (mR - r) * am; g += (mG - g) * am; b += (mB - b) * am;
+
+            // rose, seulement à l'intérieur des taches
+            if (a > 0.3) {
+              const n3 = n2 + (rnd() - 0.5) * JIT * 0.5;
+              if (n3 > TP) {
+                const w = (n3 >= TPS ? 1 : sm((n3 - TP) / (TPS - TP))) * a;
+                r += (aR - r) * w; g += (aG - g) * w; b += (aB - b) * w;
+              }
+            }
+          }
+
+          // blocs marron carrés (+ bord granuleux)
+          const nb = F[nby + ((((x >> BS) << BS) + xo) & MASK)];
+          if (nb > TD || (nb > TD - 0.015 && rnd() < 0.35)) {
+            dark = true;
+            if (rnd() < 0.05) { r = bgR; g = bgG; b = bgB; }          // petits points clairs dans le marron
+            else { r = dR; g = dG; b = dB; }
+          } else if (a === 0 && rnd() < SPECK) { r = dR; g = dG; b = dB; dark = true; }
+
+          // fines stries verticales, seulement dans les zones colorées
+          const f = 1 + colNoise[x] * ((a > 0 || dark) ? 0.10 : 0);
+          d[p] = r * f; d[p + 1] = g * f; d[p + 2] = b * f; d[p + 3] = 255;
+        }
+      }
+
+      // déchirures : des morceaux de lignes copiés ailleurs (bords rectangulaires)
+      const nt = 2 + ((rnd() * 4) | 0);
+      for (let i = 0; i < nt; i++) {
+        const y0 = (rnd() * H) | 0, h = 3 + ((rnd() * H * 0.04) | 0);
+        const x0 = (rnd() * W * 0.6) | 0;
+        const w = Math.min(W - x0, (W * (0.2 + rnd() * 0.5)) | 0);
+        const dx = ((rnd() - 0.5) * W * 0.4) | 0;
+        const sx0 = Math.max(0, Math.min(W - w, x0 + dx));
+        for (let y = y0; y < Math.min(H, y0 + h); y++) {
+          d.copyWithin((y * W + x0) * 4, (y * W + sx0) * 4, (y * W + sx0 + w) * 4);
+        }
+      }
+
+      // ligne verticale fine
+      if (line && --line.life <= 0) line = null;
+      if (!line && rnd() < 0.06) {
+        const y0 = rnd() < 0.5 ? 0 : ((rnd() * H * 0.5) | 0);
+        line = { x: (rnd() * W) | 0, y0, y1: rnd() < 0.5 ? H : y0 + ((H * (0.3 + rnd() * 0.4)) | 0),
+                 life: 6 + ((rnd() * 14) | 0), c: pick([C.dark, C.accent]) };
+      }
+      if (line) fillRect(s, line.x, line.y0, 1, line.y1 - line.y0, line.c);
+    };
+  }
+
+  const EFFECTS = { datamosh, scan, mosaic, taches };
 
   /* ============================================================
      UN FOND GLITCH : canvas + boucle d'animation
@@ -361,6 +503,7 @@
     const canvas = document.createElement('canvas');
     bg.appendChild(canvas);
     const ctx = canvas.getContext('2d');
+    canvas.style.imageRendering = T.smooth ? 'auto' : 'pixelated';   // lisse ou pixels nets
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const num = (v, fallback) => { const x = parseFloat(v); return isNaN(x) ? (fallback || 0) : x; };
@@ -383,7 +526,7 @@
     function resize() {
       const r = bg.getBoundingClientRect();
       if (!r.width || !r.height) return false;
-      const scale = Math.max(parseFloat(bg.dataset.scale) || 3, r.width / 640);
+      const scale = Math.max(parseFloat(bg.dataset.scale) || T.scale || 3, r.width / (T.maxW || 640));
       s.W = Math.max(40, Math.round(r.width / scale));
       s.H = Math.max(20, Math.round(r.height / scale));
       canvas.width = s.W; canvas.height = s.H;

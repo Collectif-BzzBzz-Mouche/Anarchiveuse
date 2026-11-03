@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Collectif Mouche</title>
+  <title>La Machine – L'Anarchiveuse</title>
   <link rel="icon" type="image/x-icon" href="/images/cursor.png">
   <link rel="stylesheet" href="Style_Machine.css" />
+  <link rel="stylesheet" href="Glitch.css" />
 </head>
 <body>
 
 <!-------------------------------------------------------------
                         FOND GLITCH
 -------------------------------------------------------------->
-<div class="glitch-bg glitch-bg--fixed glitch-bg--bleu"></div>
+<div class="glitch-bg glitch-bg--fixed glitch-bg--machine" data-grain="0.02" data-blur="2"></div>
+<script src="Glitch.js"></script>
 
 <!-------------------------------------------------------------
                       TRAINEE SOURIS        
@@ -30,10 +32,12 @@
   let lastX = -9999, lastY = -9999;
 
   function createTrace(x, y) {
-    const offsetX = (Math.random() - 0.5) * 40;
-    const offsetY = (Math.random() - 0.5) * 40;
+    // Décalage aléatoire autour du point
+    const offsetX = (Math.random() - 0.5) * 40; // ±10px
+    const offsetY = (Math.random() - 0.5) * 40; // ±10px
     const rotation = Math.floor(Math.random() * 360);
 
+    // Alterner les images dans l'ordre
     const src = IMAGES[imageIndex % IMAGES.length];
     imageIndex++;
 
@@ -78,63 +82,143 @@
 </script>
 
 <!-------------------------------------------------------------
-                          MENU        
+                          MENU         
 -------------------------------------------------------------->
 <header class="topnav">
+
   <div class="nav-item">
-    <a href="index.html" data-text="Anarchives">Anarchives</a>
-    <a href="Machine.html" data-text="Machine" data-popup="popup-machine">Machine</a>    
-    <a href="Mouche.html" data-text="Mouche" data-popup="popup-mouche">Mouche</a>
+    <a href="Machine.html" data-text="La Machine">La Machine</a>
   </div>
+
+  <div class="nav-item">
+    <a href="Anarchives.html" data-text="Les Anarchives">Les Anarchives</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="Mouche.html" data-text="Le Collectif">Le Collectif</a>
+  </div>
+
 </header>
 
 <!-------------------------------------------------------------
-                          TEXTE        
+                          DEF
 -------------------------------------------------------------->
-
-  <div class="bloc-texte">
-    <h2>L'Anarchiveuse est <strong>une machine de jeu à croiser les archives</strong> </hs2>
-    <br><br>
-    <h2><span class="highlight">Elle transforme les spectateurs en activateurs.</span></h2>
-    <div class="banner"><video width="100%" autoplay loop>
-      <source src="images/Maquette_Overview.mp4" type="video/mp4">
-      </video>
-    </div>
-    <p>Équipée de commandes mécaniques et numériques, l'Anarchiveuse fait jouer les archives en croisant les époques et les thématiques.</p>
+  <section class="bloc-texte">
+      <p><strong>Anarchiveuse(l’)</strong> <br>nom féminin <br> <br>
+        1. Machine qui efface les hiérarchies de valeur entre les différentes typologies d’archives ainsi qu'entre les spectateur..ices et les créateur..ices. En permettant l’anachronisme, la machine crée des “anarchives” issues de mélanges d’époques et de sources [médiums]. En abolissant la frontières entre spectateur..ices et créateur..ices, l'Anarchiveuse permet de repenser l’origine du geste créateur. <br>
+        2. Protocole de création qui s’écarte de la ligne de vie d’une image dans un système d’archivage traditionnel pour le transformer en spirale perpétuelle. <br> 
+        3. Personne, activateur..ice, qui utilise la machine comme outil de VJing et permet d’actionner le cycle des images par son geste narratif.</p>
+  </section>
 
 <!-------------------------------------------------------------
-                          CARROUSEL         
+                            VIDÉO 2
 -------------------------------------------------------------->
-  <section class="carousel-section">
-       <div class="carousel-outer">
-      <button class="carousel-btn" id="prev-btn"></button>
+
+  <div class="banner">
+    <video controls playsinline preload="metadata">
+      <source src="videos/ANARCHIVEUSE_MOUCHE_juin2026.mp4" type="video/mp4">
+    </video>
+  </div>
+
+<!-------------------------------------------------------------
+                          CARROUSEL
+-------------------------------------------------------------->
+  <section class="carousel-section" data-interval="4500">
+    <div class="carousel-outer">
+      <button class="carousel-btn" data-dir="prev" type="button">&lt;</button>
       <div class="carousel-window">
-        <div class="carousel-track" id="carousel-track">
+        <div class="carousel-track">
           <div class="carousel-slide">
-            <img src="images/Select.png" alt="Image 01" />
+            <img src="images/Expo/Retouches__1.png" alt="Image 01" />
           </div>
           <div class="carousel-slide">
-            <img src="images/0212.png" alt="Image 04" />
+            <img src="images/Expo/Retouches__2.png" alt="Image 02" />
           </div>
           <div class="carousel-slide">
-            <img src="images/0133.png" alt="Image 05" />
+            <img src="images/Expo/Retouches__3.png" alt="Image 03" />
           </div>
           <div class="carousel-slide">
-            <img src="images/Levier.png" alt="Image 02" />
+            <img src="images/Expo/Retouches__4.png" alt="Image 04" />
           </div>
           <div class="carousel-slide">
-            <img src="images/Volant.png" alt="Image 03" />
+            <img src="images/Expo/Retouches__5.png" alt="Image 05" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__6.png" alt="Image 06" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__7.png" alt="Image 07" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__8.png" alt="Image 08" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__9.png" alt="Image 09" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__10.png" alt="Image 10" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__11.png" alt="Image 11" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__12.png" alt="Image 12" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__13.png" alt="Image 13" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__14.png" alt="Image 14" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__15.png" alt="Image 15" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__16.png" alt="Image 16" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__17.png" alt="Image 17" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__18.png" alt="Image 18" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__19.png" alt="Image 19" />
+          </div>
+          <div class="carousel-slide">
+            <img src="images/Expo/Retouches__20.png" alt="Image 20" />
           </div>
         </div>
       </div>
-        <button class="carousel-btn" id="next-btn">></button>
-      </div>
-    </section>
+      <button class="carousel-btn" data-dir="next" type="button">&gt;</button>
+    </div>
+  </section>
 
-    <p>L'anarchiveuse propose d'explorer, de manipuler, de superposer, de ralentir, de décaler, d'accidenter des images-archives sur un fichier sonore et de réactiver leur visionnage passé et actuel. Installée dans des lieux passants, l'anarchiveuse invite à l'exploration et au jeu audiovisuel entre archives, technologies et public.</p>
+<!-------------------------------------------------------------
+                      VIDEO + TEXTE
+-------------------------------------------------------------->
+    <div class="text-block">
+    <p>Comment se projeter dans l'avenir lorsque les récits du passé semblent avoir perdu leur potentiel d’orientation et s’uniformisent ? Des archives audiovisuelles existent, mais leur potentiel révélateur reste souvent inexploré : nous les voyons sans pour autant les regarder. Et si les yeux d’un public non-expert nous permettaient de réintégrer ces archives dans de nouveaux cycles d’images ? <br>
+
+Le collectif Mouche a imaginé l’Anarchiveuse, un outil-machine d’exploration visuelle convoquant nos images passées pour nous permettre de mieux appréhender l’avenir. <br>
+
+L’Anarchiveuse est une expérience coopérative et ludique de montage vidéo en temps réel. Elle permet de  croiser des récits vidéographiques issus d’un contexte situé afin d’en faire émerger des narratives dérivées. En entrant dans la machine, les spectateur•ices deviennent activateur•ices : iels jouent les archives. <br>
+
+L’Anarchiveuse est itinérante. Elle se veut modulable, démontable et transportable pour attirer à elle différents fonds d’archives.<br>
+
+Le cycle des images mis en place par Mouche se déroule en trois temps :<br>
+Un premier temps de curation durant lequel le collectif cherche et sélectionne des archives selon le lieu dans lequel l’Anarchiveuse s’installe ; un deuxième temps d’utilisation de la machine par les activateur..ices pour créer de nouvelles anarchives à partir des archives précédemment récoltées ; et enfin, un troisième temps sous la forme d’un anarchivage sur notre site Internet avec un sourçage des archives vers les bases de données archivistiques en ligne ayant servies pour la curation.
+</p>
   </div>
 
-  <!-------------------------------------------------------------
+<!-------------------------------------------------------------
+                        BOUTON
+-------------------------------------------------------------->
+  <section class="bloc-texte">
+    <a class="btn-lien" href="Anarchives.html" data-text="Explorer les anarchives">Explorer les anarchives</a>
+  </section>
+
+<!-------------------------------------------------------------
                           LIGHTBOX         
 -------------------------------------------------------------->
   <div class="lightbox" id="lightbox">
@@ -145,105 +229,36 @@
   </div>
 
 <!-------------------------------------------------------------
-                          SCRIPT         
+              SCRIPT : CARROUSELS + LIGHTBOX
 -------------------------------------------------------------->
   <script>
   document.addEventListener('DOMContentLoaded', function() {
 
-    const track = document.getElementById('carousel-track');
-    const original = Array.from(track.querySelectorAll('.carousel-slide'));
     const GAP = 24;
-    let current = original.length;
-    let isAnimating = false;
 
-    original.forEach(s => track.appendChild(s.cloneNode(true)));
-    original.forEach(s => track.insertBefore(s.cloneNode(true), track.firstChild));
-
-    const slides = Array.from(track.querySelectorAll('.carousel-slide'));
-
-    function getSlideWidth() {
-      return slides[0].offsetWidth + GAP;
-    }
-
-    function setPosition(animate) {
-      track.style.transition = animate ? 'transform 0.5s ease' : 'none';
-      track.style.transform = 'translateX(-' + (current * getSlideWidth()) + 'px)';
-      updateActiveSlide();
-    }
-
-    function getVisibleCount() {
-      const windowWidth = document.querySelector('.carousel-window').offsetWidth;
-      const slideWidth = slides[0].offsetWidth;
-      return Math.round(windowWidth / (slideWidth + GAP));
-    }
-
-    function updateActiveSlide() {
-      const visible = getVisibleCount();
-      const centerOffset = Math.floor(visible / 2);
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === current + centerOffset);
-      });
-    }
-
-    setTimeout(() => setPosition(false), 50);
-
-    function goTo(index) {
-      if (isAnimating) return;
-      isAnimating = true;
-      current = index;
-      setPosition(true);
-    }
-
-    track.addEventListener('transitionend', () => {
-      isAnimating = false;
-      const total = slides.length;
-      if (current >= total - original.length) {
-        current = original.length;
-        setPosition(false);
-      } else if (current < original.length) {
-        current = total - original.length * 2;
-        setPosition(false);
-      }
-    });
-
-    document.getElementById('next-btn').addEventListener('click', () => goTo(current + 1));
-    document.getElementById('prev-btn').addEventListener('click', () => goTo(current - 1));
-    setInterval(() => goTo(current + 1), 4500);
-
-    // ── Lightbox ──────────────────────────────────────────────
+    // ── Lightbox, partagée par tous les carrousels ───────────
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    const images = original.map(s => ({
-      src: s.querySelector('img') ? s.querySelector('img').src : '',
-      alt: s.querySelector('img') ? s.querySelector('img').alt : ''
-    }));
-    let lightboxIndex = 0;
+    let lbImages = [];
+    let lbIndex = 0;
 
-    function openLightbox(index) {
-      lightboxIndex = index;
-      lightboxImg.src = images[lightboxIndex].src;
-      lightboxImg.alt = images[lightboxIndex].alt;
+    function showLightboxImage() {
+      lightboxImg.src = lbImages[lbIndex].src;
+      lightboxImg.alt = lbImages[lbIndex].alt;
+    }
+
+    function openLightbox(images, index) {
+      lbImages = images;
+      lbIndex = index;
+      showLightboxImage();
       lightbox.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
     function lightboxNav(dir) {
-      lightboxIndex = (lightboxIndex + dir + images.length) % images.length;
-      lightboxImg.src = images[lightboxIndex].src;
-      lightboxImg.alt = images[lightboxIndex].alt;
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      showLightboxImage();
     }
-
-    track.addEventListener('click', function(e) {
-      const slide = e.target.closest('.carousel-slide');
-      if (!slide) return;
-      const img = slide.querySelector('img');
-      if (!img) return;
-      const idx = original.findIndex(s => {
-        const si = s.querySelector('img');
-        return si && si.src === img.src;
-      });
-      openLightbox(idx >= 0 ? idx : 0);
-    });
 
     function closeLightbox() {
       lightbox.classList.remove('active');
@@ -257,7 +272,6 @@
       if (e.target === lightbox) closeLightbox();
     });
 
-    // Keyboard navigation
     document.addEventListener('keydown', function(e) {
       if (!lightbox.classList.contains('active')) return;
       if (e.key === 'ArrowLeft') lightboxNav(-1);
@@ -265,96 +279,105 @@
       if (e.key === 'Escape') closeLightbox();
     });
 
+    // ── Un carrousel ─────────────────────────────────────────
+    function initCarousel(section) {
+      const track = section.querySelector('.carousel-track');
+      const win = section.querySelector('.carousel-window');
+      const original = Array.from(track.querySelectorAll('.carousel-slide'));
+
+      // photos de ce carrousel, pour la lightbox
+      const images = original.map(s => {
+        const img = s.querySelector('img');
+        return { src: img ? img.src : '', alt: img ? img.alt : '' };
+      });
+
+      let current = original.length;
+      let isAnimating = false;
+
+      // on duplique les diapos avant et après pour une boucle infinie
+      original.forEach(s => track.appendChild(s.cloneNode(true)));
+      original.forEach(s => track.insertBefore(s.cloneNode(true), track.firstChild));
+
+      const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+
+      function getSlideWidth() {
+        return slides[0].offsetWidth + GAP;
+      }
+
+      function getVisibleCount() {
+        return Math.round(win.offsetWidth / getSlideWidth());
+      }
+
+      function updateActiveSlide() {
+        const centerOffset = Math.floor(getVisibleCount() / 2);
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === current + centerOffset);
+        });
+      }
+
+      function setPosition(animate) {
+        track.style.transition = animate ? 'transform 0.5s ease' : 'none';
+        track.style.transform = 'translateX(-' + (current * getSlideWidth()) + 'px)';
+        updateActiveSlide();
+      }
+
+      function goTo(index) {
+        if (isAnimating) return;
+        isAnimating = true;
+        current = index;
+        setPosition(true);
+      }
+
+      setTimeout(() => setPosition(false), 50);
+      window.addEventListener('resize', () => setPosition(false));
+
+      track.addEventListener('transitionend', (e) => {
+        if (e.target !== track) return;   // ignore les transitions des diapos
+        isAnimating = false;
+        const total = slides.length;
+        if (current >= total - original.length) {
+          current = original.length;
+          setPosition(false);
+        } else if (current < original.length) {
+          current = total - original.length * 2;
+          setPosition(false);
+        }
+      });
+
+      section.querySelector('[data-dir="next"]').addEventListener('click', () => goTo(current + 1));
+      section.querySelector('[data-dir="prev"]').addEventListener('click', () => goTo(current - 1));
+      setInterval(() => goTo(current + 1), parseInt(section.dataset.interval, 10) || 4500);
+
+      // clic sur une photo : lightbox
+      track.addEventListener('click', function(e) {
+        const slide = e.target.closest('.carousel-slide');
+        if (!slide) return;
+        openLightbox(images, slides.indexOf(slide) % original.length);
+      });
+    }
+
+    document.querySelectorAll('.carousel-section').forEach(initCarousel);
+
   });
   </script>
-
-<!-------------------------------------------------------------
-                          CARTE         
--------------------------------------------------------------->
-  <div class="carte">
-    <div class="carte-texte">
-      <h2>L'Anarchiveuse est une machine itinérante</h2>
-      <h3>Les images circulent entre <strong>lieux d'ancrage</strong> et <span class="highlight">lieux de médiation artistique</span>.</h3>
-    </div>
-
-  <div class="carte-lieux">
-    <div class="lieu1 lieu-mediation">
-      <div class="lieu-content">
-        <h4>École Estienne</h4>
-        <p>Juin 2026</p>
-      </div>
-    </div>
-    <div class="lieu2 lieu-ancrage">
-      <div class="lieu-content">
-        <h4>Biennale De Renava</h4>
-        <p>Juillet 2026</p>
-      </div>
-    </div>
-    <div class="lieu3 lieu-mediation">
-      <div class="lieu-content">
-        <h4>FestiLumi Bonifacio</h4>
-        <p>Juillet 2026</p>
-      </div>
-    </div>
-    <div class="lieu4 lieu-ancrage">
-      <div class="lieu-content">
-        <h4>91<sup>e</sup>Naurouze</h4>
-        <p>Août 2026</p>
-      </div>
-    </div>
-    <div class="lieu5 lieu-ancrage">
-      <div class="lieu-content">
-        <h4>91<sup>e</sup> Fête de l'Humanité</h4>
-        <p>Sept. 2026</p>
-      </div>
-    </div>
-    <div class="lieu6 lieu-mediation">
-      <div class="lieu-content">
-        <h4>Abbaye Royale de Fontevraud</h4>
-        <p>Oct. 2027</p>
-      </div>
-    </div>
-    <div class="lieu7 lieu-ancrage">
-      <div class="lieu-content">
-        <h4>Château de Dampierre-Morains</h4>
-        <p>Nov. 2026</p>
-      </div>
-    </div>
-    <div class="lieu8 lieu-mediation">
-      <div class="lieu-content">
-        <h4>Fête des Lumières de Lyon</h4>
-        <p>Déc. 2026</p>
-      </div>
-    </div>
-    <div class="lieu9 lieu-ancrage">
-      <div class="lieu-content">
-        <h4>Biennale des Imaginaires Numériques</h4>
-        <p>Janv. 2027</p>
-      </div>
-    </div>
-    <div class="lieu10 lieu-ancrage">
-      <div class="lieu-content">
-        <h4>Museumsportal Berlin</h4>
-        <p>Fév. 2027</p>
-      </div>
-      </div>
-    </div>
-  </div>  
-
+  
 <!-------------------------------------------------------------
                           FOOTER         
 -------------------------------------------------------------->
-  <div class="footer-block">
-    <p>Imaginé par</p>
+<div class="footer-block">
+  <div class="footer-credits">
+    <p>Imaginée par</p>
     <h4><strong>Ornella Antony</strong></h4>
     <h4><span class="highlight">Gaspard Calais</span></h4>
     <h4><strong>Loane De Almeida Costa</strong></h4>
     <h4><span class="highlight">Ulysse Migeat</span></h4>
-    <div class="footer-block-logos">
-      <img src="images/logo_mouche_traits.webp" alt="Logo Mouche" />
-      <img src="images/DCN.webp" alt="Logo DCN" />
-    </div>
   </div>
+
+  <div class="footer-block-logos">
+    <img src="images/logo_mouche_traits.webp" alt="Logo Mouche" />
+    <img src="images/DCN.webp" alt="Logo DCN" />
+  </div>
+</div>
 
 </body>
 </html>
