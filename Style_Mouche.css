@@ -157,7 +157,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   font-size: clamp(24px, 2vw, 40px);
   color: #000000;
   line-height: 1.2;
-  -webkit-text-stroke: 1.5px #000000;
+  -webkit-text-stroke: 6px #ffffff;
   paint-order: stroke fill;
   width: 92%;
 }
@@ -184,7 +184,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   font-size: clamp(24px, 2vw, 42px);
   color: #000000;
   line-height: 1.2;
-  -webkit-text-stroke: 4px #95D8EF;
+  -webkit-text-stroke: 6px #ffffff;
   paint-order: stroke fill;
 }
 
@@ -223,21 +223,21 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   font-size: clamp(24px, 2vw, 42px);
   color: #000000;
   line-height: 1.2;
-  -webkit-text-stroke: 4px #9583FF;
+  -webkit-text-stroke: 4px #95D8EF;
   paint-order: stroke fill;
 }
 
 .section-text strong {
   font-family: 'BianzhidaiPearl', sans-serif;
   font-weight: normal;
-  background-color: #9583FF;
+  background-color: #95D8EF;
   -webkit-text-stroke: 0;
 }
 
 .section-text .highlight {
   font-family: 'BianzhidaiCloud', sans-serif;
   font-weight: normal;
-  background-color: #9583FF;
+  background-color: #95D8EF;
   -webkit-text-stroke: 0;
 }
 

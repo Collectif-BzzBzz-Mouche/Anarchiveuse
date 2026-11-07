@@ -96,11 +96,102 @@
                       BACKGROUND VIDEO
 -------------------------------------------------------------->
  <div class="hero">
-    <video class="hero-video" autoplay loop playsinline>
+    <video class="hero-video" loop playsinline preload="auto">
       <source src="videos/Anarchiveuse.mp4" type="video/mp4">
     </video>
-    <img class="hero-image" src="images/anarchiveuse.png" alt="L'Anarchiveuse">
+    <div class="hero-mark">
+      <img class="hero-image" src="images/anarchiveuse.png" alt="L'Anarchiveuse">
+      <button type="button" class="scroll-arrow" aria-label="Lancer la vidéo">↓</button>
+    </div>
   </div>
+
+  <script>
+    const heroVideo = document.querySelector('.hero-video');
+    const SCROLL_THRESHOLD = 40;
+    let wheelDown = 0;
+    let touchStartY = null;
+    let scrolledDown = false;
+    let armReveal = false;
+
+    heroVideo.addEventListener('playing', () => {
+      if (!armReveal) return;
+      heroVideo.classList.add('is-playing');
+      stopScrollListeners();
+    });
+
+    const scrollArrow = document.querySelector('.scroll-arrow');
+
+    function setArrowVisible(visible) {
+      scrollArrow.classList.toggle('is-hidden', !visible);
+    }
+
+    function launchHeroVideo() {
+      if (armReveal || heroVideo.classList.contains('is-playing')) return;
+      armReveal = true;
+      setArrowVisible(false);
+      const pending = heroVideo.play();
+      if (!pending) return;
+      pending.catch(() => {
+        heroVideo.muted = true;
+        const retry = heroVideo.play();
+        if (retry) {
+          retry.catch(() => { armReveal = false; setArrowVisible(true); });
+        } else {
+          armReveal = false;
+          setArrowVisible(true);
+        }
+      });
+    }
+
+    function wheelPixels(e) {
+      if (e.deltaMode === 1) return e.deltaY * 16;
+      if (e.deltaMode === 2) return e.deltaY * window.innerHeight;
+      return e.deltaY;
+    }
+
+    function onWheel(e) {
+      const dy = wheelPixels(e);
+      if (dy <= 0) {
+        wheelDown = 0;
+        return;
+      }
+      wheelDown += dy;
+      if (wheelDown >= SCROLL_THRESHOLD) launchHeroVideo();
+    }
+
+    function onTouchStart(e) {
+      if (e.touches.length !== 1) return;
+      touchStartY = e.touches[0].clientY;
+      scrolledDown = false;
+    }
+
+    function onTouchMove(e) {
+      if (touchStartY == null) return;
+      const dy = touchStartY - e.touches[0].clientY;
+      if (dy >= SCROLL_THRESHOLD) scrolledDown = true;
+    }
+
+    function onTouchEnd() {
+      if (scrolledDown) launchHeroVideo();
+      touchStartY = null;
+      scrolledDown = false;
+    }
+
+    function stopScrollListeners() {
+      document.removeEventListener('wheel', onWheel, true);
+      document.removeEventListener('touchstart', onTouchStart, true);
+      document.removeEventListener('touchmove', onTouchMove, true);
+      document.removeEventListener('touchend', onTouchEnd, true);
+      scrollArrow.removeEventListener('click', launchHeroVideo);
+    }
+
+    scrollArrow.addEventListener('click', launchHeroVideo);
+
+    document.addEventListener('wheel', onWheel, { capture: true, passive: true });
+    document.addEventListener('touchstart', onTouchStart, { capture: true, passive: true });
+    document.addEventListener('touchmove', onTouchMove, { capture: true, passive: true });
+    document.addEventListener('touchend', onTouchEnd, { capture: true, passive: true });
+  </script>
 
 </body>
 </html>

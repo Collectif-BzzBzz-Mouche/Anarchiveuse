@@ -111,18 +111,9 @@
   </section>
 
 <!-------------------------------------------------------------
-                            VIDÉO 2
+                    CARROUSEL + ARGU
 -------------------------------------------------------------->
-
-  <div class="banner">
-    <video controls playsinline preload="metadata">
-      <source src="videos/ANARCHIVEUSE_MOUCHE_juin2026.mp4" type="video/mp4">
-    </video>
-  </div>
-
-<!-------------------------------------------------------------
-                          CARROUSEL
--------------------------------------------------------------->
+  <div class="carousel-argu">
   <section class="carousel-section" data-interval="4500">
     <div class="carousel-outer">
       <button class="carousel-btn" data-dir="prev" type="button">&lt;</button>
@@ -194,22 +185,80 @@
     </div>
   </section>
 
-<!-------------------------------------------------------------
-                      VIDEO + TEXTE
--------------------------------------------------------------->
-    <div class="text-block">
+  <div class="argu">
     <p>Comment se projeter dans l'avenir lorsque les récits du passé semblent avoir perdu leur potentiel d’orientation et s’uniformisent ? Des archives audiovisuelles existent, mais leur potentiel révélateur reste souvent inexploré : nous les voyons sans pour autant les regarder. Et si les yeux d’un public non-expert nous permettaient de réintégrer ces archives dans de nouveaux cycles d’images ? <br>
 
-Le collectif Mouche a imaginé l’Anarchiveuse, un outil-machine d’exploration visuelle convoquant nos images passées pour nous permettre de mieux appréhender l’avenir. <br>
+<br>Le collectif Mouche a imaginé l’Anarchiveuse, un outil-machine d’exploration visuelle convoquant nos images passées pour nous permettre de mieux appréhender l’avenir.
 
-L’Anarchiveuse est une expérience coopérative et ludique de montage vidéo en temps réel. Elle permet de  croiser des récits vidéographiques issus d’un contexte situé afin d’en faire émerger des narratives dérivées. En entrant dans la machine, les spectateur•ices deviennent activateur•ices : iels jouent les archives. <br>
-
-L’Anarchiveuse est itinérante. Elle se veut modulable, démontable et transportable pour attirer à elle différents fonds d’archives.<br>
-
-Le cycle des images mis en place par Mouche se déroule en trois temps :<br>
-Un premier temps de curation durant lequel le collectif cherche et sélectionne des archives selon le lieu dans lequel l’Anarchiveuse s’installe ; un deuxième temps d’utilisation de la machine par les activateur..ices pour créer de nouvelles anarchives à partir des archives précédemment récoltées ; et enfin, un troisième temps sous la forme d’un anarchivage sur notre site Internet avec un sourçage des archives vers les bases de données archivistiques en ligne ayant servies pour la curation.
+L’Anarchiveuse est une expérience coopérative et ludique de montage vidéo en temps réel. Elle permet de  croiser des récits vidéographiques issus d’un contexte situé afin d’en faire émerger des narratives dérivées. En entrant dans la machine, les spectateur•ices deviennent activateur•ices : iels jouent les archives
 </p>
   </div>
+</div>
+
+<!-------------------------------------------------------------
+                            VIDÉO 2
+-------------------------------------------------------------->
+
+  <div class="banner">
+    <video controls playsinline preload="auto">
+      <source src="videos/ANARCHIVEUSE_MOUCHE_juin2026.mp4" type="video/mp4">
+    </video>
+  </div>
+  <script>
+    (function () {
+      const video = document.querySelector('.banner video');
+      if (!video) return;
+
+      let userPaused = false;
+      let pausedByScroll = false;
+      let resumeAt = 0;
+
+      video.addEventListener('pause', function () {
+        if (pausedByScroll || video.ended) return;
+        userPaused = true;
+      });
+      video.addEventListener('playing', function () {
+        pausedByScroll = false;
+        userPaused = false;
+      });
+
+      function startPlayback() {
+        const pending = video.play();
+        if (!pending || !pending.catch) return;
+        pending.catch(function () {
+          video.muted = true;
+          video.play().catch(function () {});
+        });
+      }
+
+      function playFromMark() {
+        if (resumeAt > 0.25 && video.currentTime + 0.25 < resumeAt) {
+          const onSeeked = function () {
+            video.removeEventListener('seeked', onSeeked);
+            startPlayback();
+          };
+          video.addEventListener('seeked', onSeeked);
+          video.currentTime = resumeAt;
+          return;
+        }
+        startPlayback();
+      }
+
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            if (!userPaused && video.paused) playFromMark();
+            return;
+          }
+          if (!video.paused) {
+            resumeAt = video.currentTime;
+            pausedByScroll = true;
+            video.pause();
+          }
+        });
+      }, { threshold: 0.5 }).observe(video);
+    })();
+  </script>
 
 <!-------------------------------------------------------------
                         BOUTON
@@ -234,7 +283,7 @@ Un premier temps de curation durant lequel le collectif cherche et sélectionne 
   <script>
   document.addEventListener('DOMContentLoaded', function() {
 
-    const GAP = 24;
+    const GAP = 0;
 
     // ── Lightbox, partagée par tous les carrousels ───────────
     const lightbox = document.getElementById('lightbox');
@@ -301,7 +350,13 @@ Un premier temps de curation durant lequel le collectif cherche et sélectionne 
       const slides = Array.from(track.querySelectorAll('.carousel-slide'));
 
       function getSlideWidth() {
-        return slides[0].offsetWidth + GAP;
+        return win.clientWidth + GAP;
+      }
+
+      function sizeSlides() {
+        const w = getSlideWidth();
+        slides.forEach(s => { s.style.flex = '0 0 ' + w + 'px'; });
+        return w;
       }
 
       function getVisibleCount() {
@@ -316,8 +371,9 @@ Un premier temps de curation durant lequel le collectif cherche et sélectionne 
       }
 
       function setPosition(animate) {
+        const w = sizeSlides();
         track.style.transition = animate ? 'transform 0.5s ease' : 'none';
-        track.style.transform = 'translateX(-' + (current * getSlideWidth()) + 'px)';
+        track.style.transform = 'translateX(-' + (current * w) + 'px)';
         updateActiveSlide();
       }
 
