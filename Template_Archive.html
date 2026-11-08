@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="fr">
 <head>
-  <title>Archive 2605131031</title>
-  <link rel="stylesheet" href="Style_Archives.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collectif Mouche</title>
   <link rel="icon" type="image/x-icon" href="/images/cursor.png">
+  <link rel="stylesheet" href="Style_Archives.css" />
+  <link rel="stylesheet" href="Glitch.css" />
 </head>
-
 <body>
+
+<!-------------------------------------------------------------
+                        FOND GLITCH
+-------------------------------------------------------------->
+<div class="glitch-bg glitch-bg--fixed glitch-bg--scan" data-grain="0.04" data-blur="1"></div>
+<script src="Glitch.js"></script>
 
 <!-------------------------------------------------------------
                       TRAINEE SOURIS        
 -------------------------------------------------------------->
-<script>
+  <script>
   const MAX_TRACES = 4;
   const SPACING = 40;
   const IMAGES = [
@@ -25,9 +32,12 @@
   let lastX = -9999, lastY = -9999;
 
   function createTrace(x, y) {
-    const offsetX = (Math.random() - 0.5) * 40;
-    const offsetY = (Math.random() - 0.5) * 40;
+    // Décalage aléatoire autour du point
+    const offsetX = (Math.random() - 0.5) * 40; // ±10px
+    const offsetY = (Math.random() - 0.5) * 40; // ±10px
     const rotation = Math.floor(Math.random() * 360);
+
+    // Alterner les images dans l'ordre
     const src = IMAGES[imageIndex % IMAGES.length];
     imageIndex++;
 
@@ -75,21 +85,32 @@
                           MENU         
 -------------------------------------------------------------->
 <header class="topnav">
-  <div class="nav-item">
-    <a href="index.html" data-text="Anarchives">Anarchives</a>
-    <a href="Machine.html" data-text="Machine">Machine</a>
-    <a href="Mouche.html" data-text="Mouche">Mouche</a>
-  </div>
+    
+    <div class="nav-item">
+    <a href="Machine.html" data-text="La Machine">La Machine</a>
+    </div>  
+
+    <div class="nav-item">
+    <a href="Anarchives.html" data-text="Les Anarchives">Les Anarchives</a>
+    </div>
+  
+    <div class="nav-item">
+    <a href="Mouche.html" data-text="Le Collectif">Le Collectif</a>
+    </div>
+
 </header>
 
 <!-------------------------------------------------------------
                           VIDEO         
 -------------------------------------------------------------->
-<div class="video-wrapper">
+<!-- Seul réglage : data-youtube.
+     La vidéo, le titre et la miniature sur Anarchives.html suivent ce lien. -->
+<div class="video-wrapper" data-youtube="https://youtu.be/7g-rvTDv3MI?si=Of5awxeUMMr3fW6e>
   <iframe
     class="video-frame"
-    src="https://player.vimeo.com/video/1199547037?autoplay=1&loop=1"
-    allow="autoplay; fullscreen; picture-in-picture"
+    title=""
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
     allowfullscreen>
   </iframe>
 </div>
@@ -98,63 +119,73 @@
                         INFORMATIONS         
 -------------------------------------------------------------->
 <div class="infos">
-  <h3>Lundi 08 Juin 2026<br>École Estienne</h3>
-  <h2>Anarchive 2606081828</h2>
-  <h3>Matière sonore utilisée : </h3>
-  <h2>Les gosses de Bagnolet</h2>
-  <button class="btn-partager">Partager</button>
-  <button>Télécharger</button>
-  <div class="infos-participants">
-    <h4>Emna Chaabane et Olivier Falah</h4>
+  <div class="infos-texte">
+    <p><span class="surligne">Lundi 08 Juin 2026</span></p>
+    <p><span class="surligne" data-lieu>École Estienne</span></p>
+    <h2><span class="titre-anarchive">ANARCHIVE_2606081828</span></h2>
   </div>
-  <img src="images/vertviolet.webp" alt="Bannière">
+  <div class="infos-actions">
+    <button type="button" class="btn-lien btn-partager">partager →</button>
+  </div>
 </div>
 
 <!-------------------------------------------------------------
                           SOURCES         
 -------------------------------------------------------------->
 
+<!-- Chaque source : coller seulement le lien.
+     L'image, le nom et l'année sont lus sur la page. -->
 <section class="video-grid">
-  <h3>Sources utilisées</h3>
+  <h3><span class="surligne">SOURCES SONORES ET VISUELLES UTILISÉES</span></h3>
   <div class="grille-videos">
 
     <div class="vignette">
       <a href="https://www.cinearchives.org/catalogue-visite-de-youri-gagarine-a-ivry-sur-seine-1104-1427-1-1.html?theme_id=1048">
-        <img src="images/Miniatures/Banlieues_Rouges.png">
-        <span class="annee">1963</span>
-        <p class="titre">Visite de Yuri Gagarine à Ivry-Sur-Seine</p>
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
       </a>
     </div>
 
     <div class="vignette">
       <a href="https://www.cinearchives.org/catalogue-manifestation-du-1er-decembre-1977-1104-1135-1-1.html?theme_id=1024">
-        <img src="images/Miniatures/Cadoux.jpg">
-        <span class="annee">1977</span>
-        <p class="titre">Manifestation du 1er Décembre 1977</p>
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
       </a>
     </div>
 
     <div class="vignette">
       <a href="https://www.cinearchives.org/catalogue-fete-de-l-humanite-1969-1104-615-1-1.html?theme_id=1108">
-        <img src="images/Miniatures/Fete_Huma.jpeg">
-        <span class="annee">1969</span>
-        <p class="titre">Fête de l'Humanité 1969</p>
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
       </a>
     </div>
 
     <div class="vignette">
       <a href="https://www.cinearchives.org/catalogue-28-avril-1970-debrayage-1104-1611-1-1.html?theme_id=1073">
-        <img src="images/Miniatures/Section_CGT_Dassault.jpeg">
-        <span class="annee">1970</span>
-        <p class="titre">28 Avril 1970 : Débrayage</p>
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
       </a>
     </div>
 
     <div class="vignette">
       <a href="https://www.cinearchives.org/catalogue-breiz-nevez-1104-61-1-1.html?theme_id=1015">
-        <img src="images/Miniatures/Greves.png">
-        <span class="annee">1938</span>
-        <p class="titre">Breiz Nevez</p>
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
       </a>
     </div>
 
@@ -169,18 +200,19 @@
     btn.addEventListener('click', () => {
       navigator.clipboard.writeText(window.location.href).then(() => {
         const original = btn.textContent;
-        btn.textContent = 'Lien copié !';
-        btn.style.backgroundColor = '#9583FF';
-        btn.style.color = '#ffffff';
+        btn.textContent = 'lien copié !';
+        btn.classList.add('is-copied');
         setTimeout(() => {
           btn.textContent = original;
-          btn.style.backgroundColor = '';
-          btn.style.color = '';
+          btn.classList.remove('is-copied');
         }, 2000);
       });
     });
   });
 </script>
+<script src="Youtube.js"></script>
+<script src="Sources.js"></script>
+<script src="Expo.js"></script>
 
 </body>
 </html>

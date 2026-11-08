@@ -10,11 +10,11 @@
 html, body {
   overflow-y: scroll;
   overflow-x: hidden;
+  background: #000;
   cursor: url('images/cursor.png') 0 0, auto;
-  background-image: url(images/Fond_Bleu.webp);
 }
 
-a, button, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], label[for], select, .nav-item, .nav-item > a, .dropdown a, .grille a, .popup-close, .popup-machine-lien, .popup-mouche-lien, [onclick], [tabindex] {
+a, button, .nav-item, .nav-item > a, .grille a {
   cursor: url('images/cursor_hover.png') 0 0, pointer !important;
 }
 
@@ -61,19 +61,17 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   align-items: center;
   gap: 0.8vw;
   width: clamp(350px, 64vw, 680px);
-  height: 6vh;                                  
+  height: 6vh;
   position: fixed;
-  top: 50dvh;
-  left: 50%;   
-  transform: translate(-50%, -50%);
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 999;
   box-shadow: 0px 0px 10px 10px #ffffff;
-  overflow: visible;
   white-space: nowrap;
 }
 
 .nav-item {
-  position: relative;
   height: 100%;
   display: flex;
   align-items: center;
@@ -84,10 +82,9 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(100px, 14vw, 200px);        
-  text-align: center; 
-  font-family: 'BianzhidaiPearl', sans-serif; 
-  rotate: random;
+  width: clamp(100px, 14vw, 200px);
+  text-align: center;
+  font-family: 'BianzhidaiPearl', sans-serif;
   color: #463838;
   text-decoration: none;
   font-size: clamp(9px, 2vw, 18px);
@@ -97,46 +94,18 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 .nav-item > a::after {
   content: attr(data-text);
   font-family: 'BianzhidaiMessy', sans-serif;
-  font-size: clamp(7px, 1.8vw, 14px);       
+  font-size: clamp(7px, 1.8vw, 14px);
   color: #463838;
   position: absolute;
-  inset: 0;                                  
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;                                 
+  opacity: 0;
 }
 
 .nav-item > a:hover { color: transparent; }
 .nav-item > a:hover::after { opacity: 1; }
-
-.dropdown {
-  display: none;
-  position: absolute;
-  top: 100%; 
-  left: 0;
-  background: #ffffff;
-  box-shadow: 0px 0px 6px 6px #ffffff;
-  z-index: 980;
-  min-width: 100%;
-}
-
-.dropdown a {
-  display: block;
-  width: auto;
-  line-height: normal;
-  padding: 12px 1.2vw;
-  font-family: 'Garabosse', sans-serif;
-  color: #463838;
-  text-decoration: none;
-  font-size: clamp(10px, 1.3vw, 16px);
-}
-
-.dropdown a:hover {
-  color: #7562C7;
-}
-
-.nav-item:hover .dropdown { display: block; }
 
 /* ============================================================
                             GRILLE
@@ -148,13 +117,40 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   gap: 0;
   width: 100%;
   background-image: url(images/rosevert_vert3.webp);
+  filter: url(#fisheye);
 }
 
 .grille a {
   display: block;
   overflow: hidden;
-  aspect-ratio: 2 / 1;
-  position: relative; 
+  aspect-ratio: 5 / 3;
+  position: relative;
+  background: #000;
+}
+
+.grille a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #7562C7;
+  mix-blend-mode: multiply;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+.grille a:hover::before {
+  opacity: 0;
+}
+
+/* Cadre cathodique par-dessus chaque case */
+.grille a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: url("images/Cadre_Cathodique.png") center / 100% 100% no-repeat;
 }
 
 .grille a img {
@@ -173,6 +169,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 .grille a .overlay {
   position: absolute;
   inset: 0;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -206,140 +203,59 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 }
 
 /* ============================================================
-                          POP-UP
+                            FOOTER
 ============================================================ */
-.popup-box {
-  display: none;
-  background: #ffffff;
-  box-shadow: 0px 0px 10px 10px #ffffff;
-  padding: clamp(0.75rem, 1.4vw, 1rem);
-  overflow-y: auto;
-  position: fixed;
-  z-index: 500;
-  box-sizing: border-box;
-  overflow: hidden;
-  z-index: 999;
-}
 
-.popup-box.is-open {
+.footer-block {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  width: 80vw;
+  margin-inline: auto;
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  padding-bottom: 14vh;
+  text-align: left;
 }
 
-.popup-machine {
-  width: clamp(220px, 24vw, 500px);
-  height: clamp(240px, 66vh, 700px);
-  top: clamp(6%, 24%, 28%);
-  left: clamp(1rem, 5%, 6%);
-  aspect-ratio: 24/66;
+.footer-credits {
+  text-align: left;
 }
 
-.popup-mouche {
-  width: clamp(200px, 24vw, 550px);
-  height: clamp(300px, 66vh, 700px);
-  top: clamp(4%, 2%, 4%);
-  right: clamp(2%, 4%, 6%);
-  aspect-ratio: 24/66;
-}
-
-
-.popup-box img {
-  width: 100%;
-  display: block;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
-  margin: 0;
-}
-
-.popup-mouche img:first-of-type {
-  width: calc(100% + 2 * clamp(0.75rem, 2vw, 2rem));
-  margin-left: calc(-1 * clamp(0.75rem, 2vw, 2rem));
-  margin-right: calc(-1 * clamp(0.75rem, 2vw, 2rem));
-  display: block;
-}
-
-.popup-machine img:first-of-type {
-  width: 80%;
-}
-
-.popup-box p {
-  font-family: 'Garabosse', sans-serif;
-  font-size: clamp(11px, 1vw, 16px);
-  color: #463838;
-  -webkit-text-stroke: 6px #95D8EF;
-  paint-order: stroke fill;
-  line-height: 1;
-  padding: 2vh;
-}
-
-.popup-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-family: 'BianzhidaiPearl', sans-serif;
-  color: #463838;
-  text-decoration: none;
-  font-size: clamp(10px, 1.8vw, 16px);
-}
-
-.popup-machine-lien,
-.popup-mouche-lien {
-  display: block;
-  width: fit-content;
-  text-align: center;
-  margin: 1rem auto;
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-size: clamp(10px, 1.8vw, 16px);
-  color: #463838;
-  text-decoration: none;
-  background-color: #B6F772;
-  box-shadow: 4px 4px 4px 0px #7562C7;
-  padding: 0.4em 1.8em;
-  position: relative;
-  overflow: hidden;
-}
-
-.popup-machine-lien::after,
-.popup-mouche-lien::after {
-  content: attr(data-text);
-  font-family: 'BianzhidaiMessy', sans-serif;
-  font-size: clamp(8px, 1.4vw, 14px);
-  position: absolute;
-  inset: 0;
+.footer-block-logos {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #B6F772;
-  opacity: 0;
-  color: #463838;
+  justify-content: flex-end;
+  gap: 2rem;
+  height: 8vh;
 }
 
-.popup-machine-lien:hover,
-.popup-mouche-lien:hover {
-  color: transparent;
-}
-
-.popup-machine-lien:hover::after,
-.popup-mouche-lien:hover::after {
-  opacity: 1;
-}
-
-.popup-box strong {
-  font-family: 'BianzhidaiPearl', sans-serif;
+.footer-block h4 {
+  font-size: clamp(18px, 2vw, 32px);
   font-weight: normal;
-  font-size: clamp(10px, 1.8vw, 16px);
-  background-color: #95D8EF;
-  -webkit-text-stroke: 0;
-  padding: 1%;
+  line-height: 1;
 }
 
-.popup-box .highlight {
+.footer-block strong {
   font-family: 'BianzhidaiCloud', sans-serif;
   font-weight: normal;
-  font-size: clamp(10px, 1.2vw, 16px);
-  background-color: #95D8EF;
-  -webkit-text-stroke: 0;
+  -webkit-text-stroke: 6px #9583FF;
+  paint-order: stroke fill;
+  background-color: #9583FF;
+}
+
+.footer-block .highlight {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-weight: normal;
+  -webkit-text-stroke: 6px #9583FF;
+  paint-order: stroke fill;
+  background-color: #9583FF;
+}
+
+.footer-block-logos img {
+  height: clamp(40px, 8vw, 80px);
+  width: auto;
 }
 
 /* ============================================================
@@ -355,5 +271,22 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 @media (max-width: 500px) {         
   .grille {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-block {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .footer-credits {
+    text-align: center;
+  }
+
+  .footer-block-logos {
+    justify-content: center;
   }
 }

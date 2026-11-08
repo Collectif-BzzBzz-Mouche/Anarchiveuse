@@ -71,7 +71,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 .banner,
 .text-block,
 .section-video,
-.carousel-section,
+.carousel-argu,
 .footer-block {
   display: flex;
   flex-direction: column;
@@ -148,6 +148,11 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   align-items: center;
 }
 
+.banner a {
+  display: block;
+  width: 100%;
+}
+
 .banner img {
   width: 100%;
 }
@@ -163,37 +168,56 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 }
 
 /* ============================================================
-                        BLOC TEXTE
+                        TEXT BLOCK
 ============================================================ */
 
 .text-block {
-  min-height: var(--h-text);
-  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+  width: var(--page-w);
+  min-height: auto;
+  padding-block: 0;
   margin-block: clamp(1rem, 2vw, 1.5rem);
-  flex-direction: row;
-  gap: clamp(1.5rem, 4vw, 4rem);
-  align-items: center;
+  margin-inline: auto;
+  gap: 0;
+  align-items: stretch;
+}
+
+.text-block > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 6px solid #95D8EF;
 }
 
 .text-block p {
-  flex: 2 1 0;
-  min-width: 0;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 8%;
   font-family: 'Garabosse', sans-serif;
-  text-align: left;
+  text-align: center;
   font-weight: bold;
   font-size: clamp(24px, 2vw, 42px);
   color: #000000;
   line-height: 1.2;
   -webkit-text-stroke: 6px #ffffff;
   paint-order: stroke fill;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
-.text-block > img {
-  flex: 1 1 0;
-  min-width: 0;
-  width: 100%;
-  height: auto;
-  display: block;
+.text-block:hover p {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .text-block p {
+    opacity: 1;
+  }
 }
 
 /* ============================================================
@@ -214,8 +238,10 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 }
 
 .section-text {
-  margin-bottom: 2rem;
+  margin-bottom: 10vh;
+  margin-top: 10vh;
 }
+
 
 .section-text p {
   font-family: 'Garabosse', sans-serif;
@@ -265,36 +291,50 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
                           CARROUSEL
 ============================================================ */
 
-.carousel-section {
-  min-height: var(--h-carousel);
+.carousel-argu {
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(1.5rem, 3vw, 3rem);
   padding-block: clamp(2rem, 4vw, 4rem);
+  text-align: left;
+}
+
+.carousel-section {
+  position: relative;
+  width: 100%;
   overflow: hidden;
 }
 
 .carousel-title {
   display: inline-block;
   align-self: center;
-  font-family: 'BianzhidaiPearl', sans-serif;
+  font-family: 'BianzhidaiCloud', sans-serif;
   font-weight: normal;
-  font-size: clamp(24px, 1.6vw, 34px);
-  color: #ffffff;
-  background-color: #463838;
-  padding: 4vh;
-  margin-bottom: 4vh;
+  font-size: clamp(28px, 1.8vw, 40px);
+  color: #000000;
+  background-color: #95D8EF;
+  -webkit-text-stroke: 0;
+  padding: 0.1em 0.25em;
+  margin-bottom: 0;
 }
 
-.carousel-section p {
+.argu {
+  width: 100%;
+}
+
+.argu p {
   font-family: 'Garabosse', sans-serif;
+  text-align: center;
   font-weight: bold;
-  font-size: clamp(20px, 1.2vw, 32px);
-  color: #ffffff;
-  line-height: 1.4;
-  -webkit-text-stroke: 8px #463838;
+  font-size: clamp(24px, 2vw, 42px);
+  color: #000000;
+  line-height: 1.2;
+  -webkit-text-stroke: 4px #95D8EF;
   paint-order: stroke fill;
-  padding-bottom: 2vh;
 }
 
 .carousel-outer {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -302,29 +342,37 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 }
 
 .carousel-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
   background: none;
   border: none;
   font-family: 'BianzhidaiPearl', sans-serif;
   font-size: clamp(16px, 2vw, 28px);
-  color: #463838;
+  color: #ffffff;
   flex-shrink: 0;
-  padding: 0 1rem;
+  padding: 0 0.6rem;
   line-height: 1;
 }
 
+.carousel-btn[data-dir="prev"] { left: 0; }
+.carousel-btn[data-dir="next"] { right: 0; }
+
 .carousel-window {
   overflow: hidden;
-  width: 90%;
+  width: 100%;
+  transition: height 0.5s ease;
 }
 
 .carousel-track {
   display: flex;
-  gap: 1.5rem;
+  gap: 0;
   flex-wrap: nowrap;
 }
 
 .carousel-slide {
-  flex: 0 0 calc(33.333% - 1rem);
+  flex: 0 0 100%;
   opacity: 0.8;
   transition: opacity 0.4s ease, transform 0.4s ease;
   transform: scale(0.95);
@@ -337,9 +385,9 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .carousel-slide img {
   width: 100%;
-  height: 50vh;
-  object-fit: cover;
+  height: auto;
   display: block;
+  border: 6px solid #95D8EF;
 }
 
 /* ============================================================
@@ -495,19 +543,14 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
     --h-footer:   auto;
   }
 
-  /* Bloc texte : les deux colonnes s'empilent (texte puis image) */
   .text-block {
-    flex-direction: column;
     margin-block: 0.5rem;
   }
 
-  .text-block p,
-  .text-block > img {
-    flex: 0 0 auto;
+  .text-block p {
+    text-align: center;
   }
 
-  /* Paragraphes justifiés */
-  .text-block p,
   .section-text p {
     text-align: justify;
   }
@@ -523,18 +566,6 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   .video-wrapper {
     width: calc(100% - 1rem);
     padding-bottom: 5%;
-  }
-
-  .carousel-title {
-    width: 100%;
-  }
-
-  .carousel-slide {
-    flex: 0 0 calc(100% - 0.75rem);
-  }
-
-  .carousel-slide img {
-    height: 40vh;
   }
 
   .carousel-btn {

@@ -73,10 +73,11 @@ a, button, .nav-item, .nav-item > a {
 }
 
 .hero-image {
+  padding-top: 6vh;
   position: relative;
   z-index: 1;
-  max-width: 60vw;
-  max-height: 60vh;
+  max-width: 70vw;
+  max-height: 70vh;
   height: auto;
   pointer-events: none;
 }

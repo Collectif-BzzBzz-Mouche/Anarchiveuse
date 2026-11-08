@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>L'Anarchiveuse</title>
+  <title>Les Anarchives – L'Anarchiveuse</title>
   <link rel="icon" type="image/x-icon" href="/images/cursor.png">
   <link rel="stylesheet" href="Style_Anar.css">
+  <link rel="stylesheet" href="Glitch.css" />
 </head>
 
 <body>
-
+  
 <!-------------------------------------------------------------
                       TRAINEE SOURIS        
 -------------------------------------------------------------->
@@ -80,19 +81,17 @@
                           MENU         
 -------------------------------------------------------------->
 <header class="topnav">
+
   <div class="nav-item">
-    <a href="index.html" data-text="Anarchives">Anarchives</a>
-    <div class="dropdown">
-      <a href="#" data-popup-archive>École Estienne</a>
-    </div>
+    <a href="Machine.html" data-text="La Machine">La Machine</a>
   </div>
 
   <div class="nav-item">
-    <a href="#" data-text="Machine" data-popup="popup-machine">Machine</a>
-  </div>  
-  
+    <a href="Anarchives.html" data-text="Les Anarchives">Les Anarchives</a>
+  </div>
+
   <div class="nav-item">
-    <a href="#" data-text="Mouche" data-popup="popup-mouche">Mouche</a>
+    <a href="Mouche.html" data-text="Le Collectif">Le Collectif</a>
   </div>
 
 </header>
@@ -101,180 +100,87 @@
                           GRILLE         
 -------------------------------------------------------------->
 <main>
+  <!-- href : la page de l'anarchive.
+       La vignette, le titre et le lieu viennent du lien YouTube de cette page. -->
   <div class="grille">
 
     <a href="Template_Archive.html">
       <img src="images/Miniatures/Minia_1.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_6.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_3.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_4.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_5.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_2.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_7.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_8.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_9.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_10.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_11.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
-    </a>
-
-    <a href="Template_Archive.html">
-      <img src="images/Miniatures/Minia_12.png" alt="Image 1">
-      <div class="overlay">
-        <h3>Anarchive 2606081828</h3>
-        <p>École Estienne</p>
-      </div>
+      <div class="overlay"></div>
     </a>
 
     </div>
 </main>
 
-<!-------------------------------------------------------------
-                          POP-UPS         
--------------------------------------------------------------->
-  <div class="popup-box popup-machine" id="popup-machine">
-    <a href="#" class="popup-close">✕</a>
-    <img src="images/anarchiveuse.png" alt="Machine">
-    <p><span class="highlight">est une machine de jeu à croiser les archives.</span></p>
-    <p><strong>Elle transforme les spectateurs en activateurs.</strong></p>
-    <a class="popup-machine-lien" data-text="En savoir plus" href="Machine.html">En savoir plus</a>  
-    <img src="images/rosevert.webp" alt="Banniere">
-  </div>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <filter id="fisheye" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse"
+          x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+    <feFlood flood-color="rgb(128,128,128)" result="neutral"/>
+    <feImage id="fisheye-lens" href="" x="-9999" y="-9999" width="640" height="640" result="lens"/>
+    <feComposite in="lens" in2="neutral" operator="over" result="map"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="40"
+                       xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
 
-  <div class="popup-box popup-mouche" id="popup-mouche">
-    <a href="#" class="popup-close">✕</a>
-    <img src="images/bleu_violet_.webp" alt="Mouche">
-    <img src="images/logo_mouche_lettres.webp" alt="Mouche">
-    <p>Mouche est un <strong>collectif pluridisciplinaire</strong> d'exploration de nouvelles narratives.</p>
-    <a class="popup-mouche-lien" data-text="Découvrir le collectif" href="Mouche.html">Découvrir le collectif</a>
-  </div>
+<script>
+(function () {
+  const LENS = 640;
+  const MAX_SHIFT = 100;
+  const grille = document.querySelector('.grille');
+  const lens = document.getElementById('fisheye-lens');
+  if (!grille || !lens) return;
 
-<!-------------------------------------------------------------
-                        SCRIPT POP-UPS         
--------------------------------------------------------------->
-  <script>
-    const POPUP_IDS = ['popup-machine', 'popup-mouche'];
+  const canvas = document.createElement('canvas');
+  canvas.width = LENS;
+  canvas.height = LENS;
+  const ctx = canvas.getContext('2d');
+  const image = ctx.createImageData(LENS, LENS);
+  const data = image.data;
+  const radius = LENS / 2;
+  const strength = MAX_SHIFT / (radius * 0.385);
 
-    function closeAllPopups() {
-      POPUP_IDS.forEach(id => {
-        document.getElementById(id).classList.remove('is-open');
-      });
+  for (let y = 0; y < LENS; y++) {
+    for (let x = 0; x < LENS; x++) {
+      const dx = x - radius;
+      const dy = y - radius;
+      const dist = Math.sqrt(dx * dx + dy * dy) / radius;
+      let ox = 0;
+      let oy = 0;
+      if (dist < 1) {
+        const falloff = 1 - dist * dist;
+        ox = -dx * strength * falloff;
+        oy = -dy * strength * falloff;
+      }
+      const i = (y * LENS + x) * 4;
+      data[i]     = Math.max(0, Math.min(255, 128 + (ox / MAX_SHIFT) * 127));
+      data[i + 1] = Math.max(0, Math.min(255, 128 + (oy / MAX_SHIFT) * 127));
+      data[i + 2] = 128;
+      data[i + 3] = 255;
     }
+  }
+  ctx.putImageData(image, 0, 0);
+  lens.setAttribute('href', canvas.toDataURL());
 
-    document.addEventListener('click', function(e) {
+  function place(clientX, clientY) {
+    const rect = grille.getBoundingClientRect();
+    const inside = clientX >= rect.left && clientX <= rect.right &&
+                   clientY >= rect.top && clientY <= rect.bottom;
+    const x = inside ? clientX - rect.left - radius : -9999;
+    const y = inside ? clientY - rect.top - radius : -9999;
+    lens.setAttribute('x', x);
+    lens.setAttribute('y', y);
+  }
 
-      // Bouton fermer
-      const closeBtn = e.target.closest('.popup-close');
-      if (closeBtn) {
-        e.preventDefault();
-        closeBtn.closest('.popup-box').classList.remove('is-open');
-        return;
-      }
-
-      // Liens popup (Machine / Mouche)
-      const popupTrigger = e.target.closest('[data-popup]');
-      if (popupTrigger) {
-        e.preventDefault();
-        const targetId = popupTrigger.dataset.popup;
-        const targetEl = document.getElementById(targetId);
-        if (!targetEl) return;
-        targetEl.classList.toggle('is-open');
-        return;
-      }
-
-      // Liens Archives : fermer toutes les popups
-      const archiveTrigger = e.target.closest('[data-popup-archive]');
-      if (archiveTrigger) {
-        closeAllPopups();
-      }
-
-    });
-  </script>
-
-<!-------------------------------------------------------------
-                        SCRIPT MOBILE         
--------------------------------------------------------------->
-
-  <script>if (window.innerWidth <= 600) {
-    document.querySelector('[data-popup="popup-machine"]').href = 'Machine.html';
-    document.querySelector('[data-popup="popup-machine"]').removeAttribute('data-popup');
-    document.querySelector('[data-popup="popup-mouche"]').href = 'Mouche.html';
-    document.querySelector('[data-popup="popup-mouche"]').removeAttribute('data-popup');
-    }
-  </script>
+  document.addEventListener('mousemove', (e) => place(e.clientX, e.clientY));
+  document.addEventListener('mouseleave', () => {
+    lens.setAttribute('x', -9999);
+    lens.setAttribute('y', -9999);
+  });
+})();
+</script>
+<script src="Youtube.js"></script>
+<script src="Expo.js"></script>
 
 </body>
 

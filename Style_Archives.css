@@ -7,9 +7,12 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+body {
   cursor: url('images/cursor.png') 0 0, auto;
   background-image: url(images/Fond_Bleu.webp);
 }
@@ -63,9 +66,9 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   width: clamp(350px, 64vw, 680px);
   height: 6vh;                                  
   position: fixed;
-  top: 6dvh;
-  left: 50%;   
-  transform: translate(-50%, -50%);
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 999;
   box-shadow: 0px 0px 10px 10px #ffffff;
   overflow: visible;
@@ -86,8 +89,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   justify-content: center;
   width: clamp(100px, 14vw, 200px);        
   text-align: center; 
-  font-family: 'BianzhidaiPearl', sans-serif; 
-  rotate: random;
+  font-family: 'BianzhidaiPearl', sans-serif;
   color: #463838;
   text-decoration: none;
   font-size: clamp(9px, 2vw, 18px);
@@ -121,21 +123,19 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 
 .video-wrapper {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0;
   overflow: hidden;
-  background: #B6F772;
+  background: #000000;
 }
 
 .video-frame {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
   width: 100%;
   height: 100%;
   border: none;
-  max-height: 100%;
 }
 
 /* ============================================================
@@ -145,9 +145,9 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 .video-grid {
   position: relative;
   z-index: 1;
-  padding: 2rem;
+  padding: 0 2.4rem calc(10vh + 3rem);
   width: 100%;
-  margin: 0;
+  margin: 9.5rem 0 0;
 }
 
 .grille-videos {
@@ -166,45 +166,77 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 .vignette a {
   display: block;
   text-decoration: none;
+  color: #000000;
+}
+
+.vignette .cadre {
+  position: relative;
+  display: block;
+  border: 2px solid #111111;
+  overflow: hidden;
+  line-height: 0;
+  background: #1a4d5c;
 }
 
 .vignette img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
   display: block;
+  filter: grayscale(1) contrast(1.12) brightness(0.9);
   transition: filter 0.3s ease;
 }
 
-.vignette img:hover {
-  filter: saturate(1.6) brightness(1.15);
+.vignette .cadre::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #2a9fba;
+  mix-blend-mode: color;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.vignette a:hover img {
+  filter: grayscale(1) contrast(1.12) brightness(1);
+}
+
+.vignette .annee:empty,
+.vignette .titre:empty {
+  display: none;
 }
 
 .vignette .annee {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  color: #463838;
-  font-family: 'Garabosse', sans-serif;
-  -webkit-text-stroke: 4px #ffffff;
-  font-size: clamp(16px, 2vw, 26px);
-  paint-order: stroke fill;
+  top: 0.45rem;
+  left: 0.45rem;
+  z-index: 2;
+  color: #000000;
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(12px, 1.05vw, 16px);
+  background-color: #B6F772;
+  padding: 0.18em 0.32em 0.2em;
+  line-height: 1;
+  -webkit-font-smoothing: none;
 }
 
 .vignette .titre {
-  font-family: 'BianzhidaiPearl', sans-serif;
-  color: #463838;
-  -webkit-text-stroke: 6px #B6F772;
-  paint-order: stroke fill;
-  font-size: clamp(14px, 1.5vw, 24px);
-  padding: 0.2rem 0.4rem;
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  font-family: 'Garabosse', sans-serif;
+  color: #000000;
+  font-size: clamp(13px, 1vw, 16px);
+  background-color: #7562C7;
+  padding: 0.42em 0.5em 0.46em;
+  line-height: 1.3;
 }
 
 .vignette .duree {
   font-family: 'BianzhidaiPearl', sans-serif;
-  -webkit-text-stroke: 4px #463838;
+  -webkit-text-stroke: 4px #ffffff;
   paint-order: stroke fill;
-  color: #B6F772;
+  color: #7562C7;
 }
 
 /* ============================================================
@@ -213,83 +245,125 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 
 .infos {
   position: relative;
-  padding: 2rem;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1.6rem 2.4rem 0.4rem;
 }
 
-.infos h2 {
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-size: clamp(24px, 2.5vw, 35px);
-  color: #463838;
-  font-weight: normal;
-  background-color: #B6F772;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.infos h3 {
-  font-family: 'Garabosse', sans-serif;
-  font-size: clamp(14px, 1.5vw, 24px);
-  font-weight: bold;
-  color: #463838;
-  -webkit-text-stroke: 4px #B6F772;
-  paint-order: stroke fill;
-  padding-top: 2vh;
-}
-
-.infos p {
-  font-family: 'Garabosse', sans-serif;
-  font-size: clamp(20px, 1.8vw, 33px);
-  color: #463838;
-  -webkit-text-stroke: 6px #95D8EF;
-  paint-order: stroke fill;
-  margin-bottom: 1.5rem;
-}
-
-.infos strong {
-  font-family: 'BianzhidaiPearl', sans-serif;
-  background-color: #95D8EF;
-  font-size: clamp(22px, 1.8vw, 33px);
-  font-weight: normal;
-  -webkit-text-stroke: 0 !important;
-}
-
-.infos button {
-  font-family: 'BianzhidaiCloud', sans-serif;
-  font-weight: normal;
-  font-size: clamp(14px, 3vh, 20px);
-  color: #463838;
-  background-color: #B6F772;
-  box-shadow: 4px 4px 4px 0px #E967DB;
-  padding: 0.5rem 1.2rem;
-  margin-right: 0.5rem;
-  margin-bottom: 1.5rem;
-  border: none;
-  display: inline-block;
-}
-
-.infos button:hover {
-  background-color: #95D8EF;
-  color: #ffffff;
-}
-
-.infos-participants {
+.infos-texte {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 1rem;
+  gap: 0.08rem;
+  max-width: 68%;
 }
 
-.infos h4 {
+.infos-texte > p,
+.video-grid > h3 {
+  margin: 0;
+  max-width: 100%;
+  line-height: 1.2;
+  font-weight: normal;
+}
+
+.infos-texte > h2 {
+  margin: 0.5rem 0 0;
+  max-width: 100%;
+  line-height: 1.05;
+  font-weight: normal;
+}
+
+.infos-texte .surligne,
+.video-grid .surligne {
+  display: inline;
   font-family: 'BianzhidaiPearl', sans-serif;
-  font-size: clamp(12px, 2vw, 16px);
-  font-weight: bold;
+  font-weight: normal;
+  font-size: clamp(20px, 2.1vw, 34px);
   color: #ffffff;
   background-color: #7562C7;
-  line-height: 1.4;
-  padding: 0.5rem 0.8rem;
-  margin-top: 0.8rem;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.02em 0.22em 0.08em;
+  line-height: 1.35;
+  -webkit-font-smoothing: none;
+}
+
+.infos-texte h2 {
+  margin-top: 0.45rem;
+  line-height: 1.1;
+}
+
+.titre-anarchive {
   display: inline-block;
+  font-family: 'Garabosse', serif;
+  font-weight: normal;
+  font-size: clamp(26px, 2.5vw, 40px);
+  color: #000000;
+  background-color: #7562C7;
+  padding: 0.16em 0.42em 0.2em;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.infos-texte .surligne-bleu {
+  background-color: #B6F772;
+  font-size: clamp(16px, 1.5vw, 24px);
+}
+
+.infos-texte .meta {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-size: clamp(15px, 1.4vw, 22px);
+  font-weight: normal;
+  color: #ffffff;
+  background: none;
+  margin: 0.45rem 0 0;
+  -webkit-font-smoothing: none;
+}
+
+.infos-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.85rem;
+  margin-top: 1.7rem;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+}
+
+.infos-actions button {
+  font-family: 'BianzhidaiPearl', sans-serif;
+  font-weight: normal;
+  font-size: clamp(18px, 1.7vw, 28px);
+  color: #000000;
+  background-color: #B6F772;
+  appearance: none;
+  border: none;
+  padding: 0.08em 0.32em 0.14em;
+  line-height: 1.05;
+  -webkit-font-smoothing: none;
+}
+
+.infos-actions .btn-partager {
+  transform: rotate(-11deg);
+  transition: transform 0.25s ease;
+}
+
+.infos-actions .btn-partager:hover {
+  transform: rotate(-18deg);
+}
+
+.infos-actions .btn-telecharger {
+  transform: rotate(-4deg);
+  margin-right: 0.85rem;
+}
+
+.infos-actions button:hover,
+.infos-actions button.is-copied {
+  background-color: #9be85a;
+  color: #000000;
 }
 
 .infos img {
@@ -300,14 +374,14 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
   margin-top: 1.5rem;
 }
 
-.video-grid h3 {
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-size: clamp(14px, 1.5vw, 24px);
-  font-weight: bold;
-  background-color: #B6F772;
-  paint-order: stroke fill;
-  margin-bottom: 0.5rem;
-  display: inline-block;
+.video-grid > h3 {
+  margin-bottom: 1rem;
+  padding-left: 0.8rem;
+}
+
+.video-grid > h3 .surligne {
+  font-size: clamp(18px, 1.7vw, 28px);
+  letter-spacing: 0.02em;
 }
 
 /* ============================================================
@@ -316,62 +390,50 @@ a, button, [role="button"], input[type="submit"], input[type="button"], input[ty
 
 @media (max-width: 1200px) {
   .grille-videos { grid-template-columns: repeat(3, 1fr); }
-
-  .video-wrapper { height: 60vh; }
 }
 
 @media (max-width: 900px) {
   .grille-videos { grid-template-columns: repeat(2, 1fr); }
-
-  .video-wrapper {
-    height: 28vh !important;
-    max-height: 28vh !important;
-  }
 }
 
 @media (max-width: 768px) {
 
-  .body{
-    width: 94vw;
+  .infos {
+    flex-direction: column;
+    padding: 1.2rem;
+    gap: 1.4rem;
   }
 
-  .infos { padding: 1.2rem; }
-
-  .infos h2 {
-     font-size: clamp(24px, 2.5vw, 35px);
-    line-height: 1.3;
+  .infos-texte {
+    max-width: 100%;
   }
 
-  .infos h3 { font-size: clamp(14px, 1.5vw, 24px);; }
-
-  .infos p {
-    font-size: clamp(13px, 4vw, 16px);
-    text-align: left;
+  .infos-texte .surligne,
+  .video-grid .surligne {
+    font-size: clamp(18px, 5.2vw, 28px);
   }
 
-  .infos button {
-    font-size: clamp(11px, 1vw, 16px);
-    padding: 0.8rem 1.4rem;
-    display: block;
-    width: 100%;
+  .infos-texte .surligne-bleu {
+    font-size: clamp(15px, 4.2vw, 20px);
+  }
+
+  .infos-actions {
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.2rem;
+  }
+
+  .infos-actions button {
+    font-size: clamp(15px, 4vw, 20px);
+  }
+
+  .infos-actions .btn-telecharger {
     margin-right: 0;
-    margin-bottom: 0.8rem;
   }
 
-  .infos h4 {
-    font-size: clamp(7px, 2vw, 11px);
-    padding: 0.4rem 0.6rem;
-  }
-
-  .video-grid { padding: 1rem; }
-
-  .video-grid h3 { font-size: clamp(14px, 1.5vw, 24px); }
+  .video-grid { padding: 1rem 1rem calc(10vh + 3rem); }
 
   .grille-videos { grid-template-columns: repeat(2, 1fr); }
-
-  .video-wrapper {
-    height: 20vh !important;
-    max-height: 25vh !important;
-  }
 
 }

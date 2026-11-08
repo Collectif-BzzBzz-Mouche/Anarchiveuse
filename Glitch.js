@@ -23,7 +23,7 @@
     sombre: { effect: 'datamosh', fps: 8,  colors: { bg: 'brun',   a: 'violet', dark: 'bleu', blk: ['vert', 'bleu', 'blanc']   } },
 
     // --- effet "scan" (Machine) : fond sombre, lignes de balayage, bruit et barre de suivi ---
-    scan:   { effect: 'scan',     fps: 12, colors: { bg: 'brun', lines: ['vert', 'violet', 'bleu'], noise: ['blanc', 'bleu', 'vert'] } },
+    scan:   { effect: 'scan',     fps: 2, colors: { bg: 'noir', lines: ['noir', 'blanc', 'blanc'], noise: ['blanc', 'blanc', 'noir'] } },
 
     // --- effet "taches" : fond blanc, taches douces + rose + blocs marron (d'après tes images) ---
     //     scale : taille des pixels (plus petit = plus fin, plus lourd) / maxW : largeur max du dessin
@@ -34,7 +34,7 @@
     mosaic: { effect: 'mosaic',   fps: 6,  colors: { bg: 'blanc', levels: ['bleu', 'violet', 'rose'], dark: 'brun', blocks: ['rose', 'vert', 'violet', 'bleu'] } }
   };
 
-  const FALLBACK = { violet: '#7562C7', vert: '#B6F772', bleu: '#95D8EF', brun: '#463838', blanc: '#ffffff', rose: '#E967DB', noir: '#000000', jaune: '#ffe868'};
+  const FALLBACK = { violet: '#7562C7', vert: '#B6F772', bleu: '#95D8EF', brun: '#463838', blanc: '#ffffff', rose: '#E967DB', noir: '#000000', jaune: '#ffe868', noir: '#000000'};
 
   /* ============================================================
      OUTILS PARTAGÉS
