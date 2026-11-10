@@ -96,11 +96,11 @@
                       BACKGROUND VIDEO
 -------------------------------------------------------------->
  <div class="hero">
-    <video class="hero-video" loop playsinline preload="auto">
+    <video class="hero-video" loop playsinline preload="metadata">
       <source data-src="videos/Anarchiveuse.mp4" type="video/mp4">
     </video>
     <div class="hero-mark">
-      <img class="hero-image" src="images/Anarchiveuse_2.gif" alt="L'Anarchiveuse">
+      <img class="hero-image" src="images/Anarchiveuse_2.gif" alt="L'Anarchiveuse" decoding="async" fetchpriority="high">
       <button type="button" class="scroll-arrow" aria-label="Lancer la vidéo">↓</button>
     </div>
   </div>

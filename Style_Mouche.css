@@ -39,6 +39,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   src: url('fonts/bianzhidai_noBG-Messy.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -46,6 +47,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   src: url('fonts/bianzhidai_noBG-Pearl.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -53,6 +55,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   src: url('fonts/bianzhidai_noBG-Cloud.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -60,6 +63,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   src: url('fonts/Garabosse-Perle.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* ============================================================
@@ -75,6 +79,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   flex-direction: column;
   justify-content: center;   /* centré verticalement   */
   width: var(--page-w);
+  max-width: var(--page-w);
+  min-width: 0;
   margin-inline: auto;       /* la colonne est centrée dans la page */
   text-align: center;
 }
@@ -229,6 +235,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .section-content {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -236,6 +244,9 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 }
 
 .section-text {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin-bottom: 10vh;
   margin-top: 10vh;
 }
@@ -302,6 +313,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .argu {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .argu p {
@@ -355,6 +368,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .carousel-slide {
   flex: 0 0 100%;
+  min-width: 0;
+  max-width: 100%;
   opacity: 0.8;
   transition: opacity 0.4s ease, transform 0.4s ease;
   transform: scale(0.95);
@@ -529,6 +544,13 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   .section-text p,
   .argu p {
     -webkit-text-stroke-width: 3px;
+  }
+
+  .tagline,
+  .section-text p,
+  .argu p {
+    padding-inline: 0.7rem;
+    overflow-wrap: break-word;
   }
 
   .tagline {

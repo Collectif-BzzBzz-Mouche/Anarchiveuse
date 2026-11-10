@@ -27,6 +27,7 @@ a, button, .nav-item, .nav-item > a, .grille a {
   src: url('fonts/bianzhidai_noBG-Messy.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -34,6 +35,7 @@ a, button, .nav-item, .nav-item > a, .grille a {
   src: url('fonts/bianzhidai_noBG-Pearl.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -41,6 +43,7 @@ a, button, .nav-item, .nav-item > a, .grille a {
   src: url('fonts/Garabosse-Perle.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* ============================================================
@@ -157,7 +160,7 @@ a, button, .nav-item, .nav-item > a, .grille a {
   height: 100%;
   object-fit: cover; 
   display: block;
-  mix-blend-mode:lighten;
+  mix-blend-mode:luminosity;
 }
 
 .grille a:hover img {

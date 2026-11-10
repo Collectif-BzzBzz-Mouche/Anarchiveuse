@@ -38,6 +38,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   src: url('fonts/bianzhidai_noBG-Messy.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -45,6 +46,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   src: url('fonts/bianzhidai_noBG-Pearl.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -52,6 +54,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   src: url('fonts/bianzhidai_noBG-Cloud.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -59,13 +62,13 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   src: url('fonts/Garabosse-Perle.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* ============================================================
                             SECTIONS
 ============================================================ */
 
-.banner,
 .bloc-texte,
 .carousel-argu,
 .footer-block {
@@ -73,8 +76,18 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   flex-direction: column;
   justify-content: center;   /* centré verticalement   */
   width: var(--page-w);
+  max-width: var(--page-w);
+  min-width: 0;
   margin-inline: auto;       /* la colonne est centrée dans la page */
   text-align: center;
+}
+
+.banner,
+.overview {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: none;
 }
 
 /* ============================================================
@@ -144,7 +157,6 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 ============================================================ */
 
 .banner {
-  width: 100%;
   min-height: var(--h-banner);
   gap: 4vh;
   align-items: center;
@@ -162,7 +174,6 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .overview {
   position: relative;
-  width: 100%;
 }
 
 .overview video {
@@ -295,6 +306,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .argu {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .argu p {
@@ -367,6 +380,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .carousel-slide {
   flex: 0 0 100%;
+  min-width: 0;
+  max-width: 100%;
   opacity: 0.8;
   transition: opacity 0.4s ease, transform 0.4s ease;
   transform: scale(0.95);
@@ -554,6 +569,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   .bloc-texte p,
   .argu p {
     font-size: clamp(16px, 4.2vw, 22px);
+    padding-inline: 0.7rem;
+    overflow-wrap: break-word;
   }
 
   .overview p {

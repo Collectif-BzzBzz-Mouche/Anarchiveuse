@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collectif Mouche</title>
+  <link rel="icon" type="image/x-icon" href="../../images/cursor.png">
+  <link rel="stylesheet" href="../../Style_Archives.css" />
+  <link rel="stylesheet" href="../../Glitch.css" />
+</head>
+<body>
+
+<!-------------------------------------------------------------
+                        FOND GLITCH
+-------------------------------------------------------------->
+<div class="glitch-bg glitch-bg--fixed glitch-bg--scan" data-grain="0.04" data-blur="1"></div>
+<script src="../../Glitch.js"></script>
+
+<!-------------------------------------------------------------
+                      TRAINEE SOURIS        
+-------------------------------------------------------------->
+  <script>
+  const MAX_TRACES = 4;
+  const SPACING = 40;
+  const IMAGES = [
+    '../../images/trainee1.png',
+    '../../images/trainee2.png',
+    '../../images/trainee3.png',
+  ];
+  let imageIndex = 0;
+  const traces = [];
+  let lastX = -9999, lastY = -9999;
+
+  function createTrace(x, y) {
+    // Décalage aléatoire autour du point
+    const offsetX = (Math.random() - 0.5) * 40; // ±10px
+    const offsetY = (Math.random() - 0.5) * 40; // ±10px
+    const rotation = Math.floor(Math.random() * 360);
+
+    // Alterner les images dans l'ordre
+    const src = IMAGES[imageIndex % IMAGES.length];
+    imageIndex++;
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.cssText = `
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      width: 32px;
+      height: auto;
+      transform: translate(-50%, -50%) rotate(${rotation}deg);
+      transition: opacity 0.3s ease;
+    `;
+    img.style.left = (x + offsetX) + 'px';
+    img.style.top = (y + offsetY) + 'px';
+    img.style.opacity = '1';
+    document.body.appendChild(img);
+    traces.push({ el: img });
+
+    if (traces.length > MAX_TRACES) {
+      const old = traces.shift();
+      old.el.remove();
+    }
+
+    traces.forEach((t, i) => {
+      t.el.style.opacity = (i + 1) / traces.length;
+    });
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist >= SPACING) {
+      createTrace(e.clientX, e.clientY);
+      lastX = e.clientX;
+      lastY = e.clientY;
+    }
+  });
+</script>
+
+<!-------------------------------------------------------------
+                          MENU         
+-------------------------------------------------------------->
+<header class="topnav">
+    
+    <div class="nav-item">
+    <a href="../../Machine.html" data-text="La Machine">La Machine</a>
+    </div>  
+
+    <div class="nav-item">
+    <a href="../../Anarchives.html" data-text="Les Anarchives">Les Anarchives</a>
+    </div>
+  
+    <div class="nav-item">
+    <a href="../../Mouche.html" data-text="Le Collectif">Le Collectif</a>
+    </div>
+
+</header>
+
+<!-------------------------------------------------------------
+                          VIDEO         
+-------------------------------------------------------------->
+<!-- Seul réglage : data-youtube.
+     La vidéo, le titre et la miniature sur Anarchives.html suivent ce lien. -->
+<div class="video-wrapper" data-youtube="https://youtu.be/Fgpz8vl0aWI?si=fxky5gj0f1LcrThK">
+  <iframe
+    class="video-frame"
+    title=""
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<!-------------------------------------------------------------
+                        INFORMATIONS         
+-------------------------------------------------------------->
+<div class="infos">
+  <div class="infos-texte">
+    <p><span class="surligne">Jeudi 11 Juin 2026</span></p>
+    <p><span class="surligne" data-lieu>École Estienne</span></p>
+    <h2><span class="titre-anarchive"></span></h2>
+  </div>
+  <div class="infos-actions">
+    <button type="button" class="btn-lien btn-partager">partager →</button>
+  </div>
+</div>
+
+<!-------------------------------------------------------------
+                          SOURCES         
+-------------------------------------------------------------->
+
+<!-- Chaque source : coller seulement le lien.
+     L'image, le nom et l'année sont lus sur la page. -->
+<section class="video-grid">
+  <h3><span class="surligne">SOURCES SONORES ET VISUELLES UTILISÉES</span></h3>
+  <div class="grille-videos">
+
+    <div class="vignette">
+      <a href="https://www.cinearchives.org/catalogue-visite-de-youri-gagarine-a-ivry-sur-seine-1104-1427-1-1.html?theme_id=1048">
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
+      </a>
+    </div>
+
+    <div class="vignette">
+      <a href="https://www.cinearchives.org/catalogue-manifestation-du-1er-decembre-1977-1104-1135-1-1.html?theme_id=1024">
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
+      </a>
+    </div>
+
+    <div class="vignette">
+      <a href="https://www.cinearchives.org/catalogue-fete-de-l-humanite-1969-1104-615-1-1.html?theme_id=1108">
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
+      </a>
+    </div>
+
+    <div class="vignette">
+      <a href="https://www.cinearchives.org/catalogue-28-avril-1970-debrayage-1104-1611-1-1.html?theme_id=1073">
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
+      </a>
+    </div>
+
+    <div class="vignette">
+      <a href="https://www.cinearchives.org/catalogue-breiz-nevez-1104-61-1-1.html?theme_id=1015">
+        <span class="cadre">
+          <img alt="">
+          <span class="annee"></span>
+        </span>
+        <p class="titre"></p>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-------------------------------------------------------------
+                        BOUTON PARTAGER         
+-------------------------------------------------------------->
+<script>
+  document.querySelectorAll('.btn-partager').forEach(btn => {
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'lien copié !';
+        btn.classList.add('is-copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('is-copied');
+        }, 2000);
+      });
+    });
+  });
+</script>
+<script src="../../Youtube.js"></script>
+<script src="../../Sources.js"></script>
+<script src="../../Expo.js"></script>
+
+</body>
+</html>
