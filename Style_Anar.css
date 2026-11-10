@@ -37,13 +37,6 @@ a, button, .nav-item, .nav-item > a, .grille a {
 }
 
 @font-face {
-  font-family: 'BianzhidaiCloud';
-  src: url('fonts/bianzhidai_noBG-Cloud.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
   font-family: 'Garabosse';
   src: url('fonts/Garabosse-Perle.woff') format('woff');
   font-weight: normal;
@@ -59,9 +52,10 @@ a, button, .nav-item, .nav-item > a, .grille a {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.8vw;
-  width: clamp(350px, 64vw, 680px);
+  gap: 0.4vw;
+  width: min(680px, calc(100vw - 1.5rem));
   height: 6vh;
+  min-height: 44px;
   position: fixed;
   bottom: 4vh;
   left: 50%;
@@ -73,8 +67,11 @@ a, button, .nav-item, .nav-item > a, .grille a {
 
 .nav-item {
   height: 100%;
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-item > a {
@@ -82,7 +79,8 @@ a, button, .nav-item, .nav-item > a, .grille a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(100px, 14vw, 200px);
+  width: 100%;
+  max-width: 200px;
   text-align: center;
   font-family: 'BianzhidaiPearl', sans-serif;
   color: #463838;
@@ -116,6 +114,7 @@ a, button, .nav-item, .nav-item > a, .grille a {
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   width: 100%;
+  padding-bottom: 14vh;
   background-image: url(images/rosevert_vert3.webp);
   filter: url(#fisheye);
 }
@@ -162,8 +161,7 @@ a, button, .nav-item, .nav-item > a, .grille a {
 }
 
 .grille a:hover img {
-  mix-blend-mode:normal;
-  transition: filter 1s ease;
+  mix-blend-mode: normal;
 }
 
 .grille a .overlay {
@@ -203,62 +201,6 @@ a, button, .nav-item, .nav-item > a, .grille a {
 }
 
 /* ============================================================
-                            FOOTER
-============================================================ */
-
-.footer-block {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-  width: 80vw;
-  margin-inline: auto;
-  padding-block: clamp(1.5rem, 3vw, 2.5rem);
-  padding-bottom: 14vh;
-  text-align: left;
-}
-
-.footer-credits {
-  text-align: left;
-}
-
-.footer-block-logos {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 2rem;
-  height: 8vh;
-}
-
-.footer-block h4 {
-  font-size: clamp(18px, 2vw, 32px);
-  font-weight: normal;
-  line-height: 1;
-}
-
-.footer-block strong {
-  font-family: 'BianzhidaiCloud', sans-serif;
-  font-weight: normal;
-  -webkit-text-stroke: 6px #9583FF;
-  paint-order: stroke fill;
-  background-color: #9583FF;
-}
-
-.footer-block .highlight {
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-weight: normal;
-  -webkit-text-stroke: 6px #9583FF;
-  paint-order: stroke fill;
-  background-color: #9583FF;
-}
-
-.footer-block-logos img {
-  height: clamp(40px, 8vw, 80px);
-  width: auto;
-}
-
-/* ============================================================
                           RESPONSIVE
 ============================================================ */
 
@@ -268,25 +210,37 @@ a, button, .nav-item, .nav-item > a, .grille a {
   }
 }
 
-@media (max-width: 500px) {         
-  .grille {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .topnav {
+    bottom: 0.8rem;
+    height: auto;
+  }
+
+  .nav-item > a {
+    font-size: clamp(7px, 2.35vw, 14px);
+  }
+
+  .nav-item > a::after {
+    font-size: clamp(7px, 2.3vw, 12px);
+  }
+
+  .grille a .overlay {
+    padding: 10px;
+  }
+
+  .grille a .overlay h3 {
+    font-size: clamp(13px, 3.4vw, 18px);
+    -webkit-text-stroke-width: 3px;
+  }
+
+  .grille a .overlay p {
+    font-size: clamp(11px, 2.8vw, 14px);
+    -webkit-text-stroke-width: 3px;
   }
 }
 
-@media (max-width: 768px) {
-  .footer-block {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    gap: 1.5rem;
-  }
-
-  .footer-credits {
-    text-align: center;
-  }
-
-  .footer-block-logos {
-    justify-content: center;
+@media (max-width: 500px) {
+  .grille {
+    grid-template-columns: 1fr;
   }
 }

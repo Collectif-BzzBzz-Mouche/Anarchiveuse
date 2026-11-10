@@ -5,12 +5,9 @@
   /* Largeur de tout le contenu de la page (90vw sur mobile, voir plus bas) */
   --page-w: 80vw;
 
-  /* Hauteur minimale de chaque section : elle s'agrandit si son contenu est plus grand.
-     "auto" = la hauteur du contenu (comme avant). Exemples : 100vh, 60vh, 500px */
-  --h-banner:   auto;
-  --h-text:     auto;
-  --h-carousel: auto;
-  --h-footer:   auto;
+  /* Hauteur minimale : elle s'agrandit si le contenu est plus grand */
+  --h-banner: auto;
+  --h-footer: auto;
 }
 
 /* ============================================================
@@ -89,9 +86,10 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.8vw;
-  width: clamp(350px, 64vw, 680px);
+  gap: 0.4vw;
+  width: min(680px, calc(100vw - 1.5rem));
   height: 6vh;
+  min-height: 44px;
   position: fixed;
   bottom: 4vh;
   left: 50%;
@@ -103,8 +101,11 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .nav-item {
   height: 100%;
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-item > a {
@@ -112,7 +113,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(100px, 14vw, 200px);
+  width: 100%;
+  max-width: 200px;
   text-align: center;
   font-family: 'BianzhidaiPearl', sans-serif;
   color: #463838;
@@ -146,10 +148,6 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   min-height: var(--h-banner);
   gap: 4vh;
   align-items: center;
-}
-
-.banner img {
-  width: 100%;
 }
 
 .banner video {
@@ -215,6 +213,10 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 .bloc-texte {
   padding-top: 10vh;
   margin-block: clamp(1rem, 2vw, 1.5rem);
+}
+
+.bloc-texte:has(.btn-lien) {
+  margin-bottom: clamp(3.5rem, 8vh, 6rem);
 }
 
 .bloc-texte p {
@@ -323,29 +325,6 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   position: relative;
   width: 100%;
   overflow: hidden;
-}
-
-.carousel-title {
-  display: inline-block;
-  align-self: center;
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-weight: normal;
-  font-size: clamp(24px, 1.6vw, 34px);
-  color: #ffffff;
-  background-color: #7562C7;
-  padding: 4vh;
-  margin-bottom: 4vh;
-}
-
-.carousel-section p {
-  font-family: 'Garabosse', sans-serif;
-  font-weight: bold;
-  font-size: clamp(20px, 1.2vw, 32px);
-  color: #ffffff;
-  line-height: 1.4;
-  -webkit-text-stroke: 8px #7562C7;
-  paint-order: stroke fill;
-  padding-bottom: 2vh;
 }
 
 .carousel-outer {
@@ -511,7 +490,7 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   font-size: clamp(14px, 1.2vw, 20px);
   color: #000000;
   margin-bottom: 0.5rem;
-  -webkit-text-stroke: 6px #9583FF;
+  -webkit-text-stroke: 6px #B6F772;
   paint-order: stroke fill;
 }
 
@@ -524,17 +503,17 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 .footer-block strong {
   font-family: 'BianzhidaiCloud', sans-serif;
   font-weight: normal;
-  -webkit-text-stroke: 6px #9583FF;
+  -webkit-text-stroke: 6px #B6F772;
   paint-order: stroke fill;
-  background-color: #9583FF;
+  background-color: #B6F772;
 }
 
 .footer-block .highlight {
   font-family: 'BianzhidaiPearl', sans-serif;
   font-weight: normal;
-  -webkit-text-stroke: 6px #9583FF;
+  -webkit-text-stroke: 6px #B6F772;
   paint-order: stroke fill;
-  background-color: #9583FF;
+  background-color: #B6F772;
 }
 
 .footer-block-logos img {
@@ -548,34 +527,60 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 @media (max-width: 768px) {
 
-  /* Largeur de la page et hauteurs des sections sur mobile (à modifier ici) */
   :root {
-    --page-w:     90vw;
-    --h-banner:   auto;
-    --h-text:     auto;
-    --h-carousel: auto;
-    --h-footer:   auto;
+    --page-w: 90vw;
   }
 
-  /* Textes */
-  .bloc-texte h3 {
-    font-size: clamp(14px, 1.5vw, 24px);
+  .topnav {
+    bottom: 0.8rem;
+    height: auto;
   }
 
-  .bloc-texte p {
-    font-size: clamp(20px, 1.8vw, 33px);
+  .nav-item > a {
+    font-size: clamp(7px, 2.35vw, 14px);
   }
 
-  .carousel-btn {
-    padding: 0 0.5rem;
+  .nav-item > a::after {
+    font-size: clamp(7px, 2.3vw, 12px);
   }
 
-  /* Footer en 2 colonnes : les colonnes s'empilent, centrées */
+  .bloc-texte p,
+  .argu p,
+  .overview p,
+  .footer-block p {
+    -webkit-text-stroke-width: 3px;
+  }
+
+  .bloc-texte p,
+  .argu p {
+    font-size: clamp(16px, 4.2vw, 22px);
+  }
+
+  .overview p {
+    font-size: clamp(16px, 4.6vw, 24px);
+    padding: 1rem 6vw;
+  }
+
+  .btn-lien,
+  .btn-lien::before,
+  .btn-lien::after {
+    white-space: normal;
+  }
+
+  .btn-lien {
+    font-size: clamp(12px, 3.4vw, 16px);
+  }
+
+  .carousel-slide img {
+    border-width: 3px;
+  }
+
   .footer-block:has(> .footer-credits) {
     flex-direction: column;
     justify-content: center;
     text-align: center;
     gap: 1.5rem;
+    padding-bottom: 12vh;
   }
 
   .footer-block:has(> .footer-credits) .footer-credits {
@@ -584,5 +589,6 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
   .footer-block:has(> .footer-credits) .footer-block-logos {
     justify-content: center;
+    height: auto;
   }
 }

@@ -5,12 +5,10 @@
   /* Largeur de tout le contenu de la page (90vw sur mobile, voir plus bas) */
   --page-w: 80vw;
 
-  /* Hauteur minimale de chaque section : elle s'agrandit si son contenu est plus grand */
-  --h-banner:   100vh;
-  --h-text:     30vh;
-  --h-video:    100vh;
-  --h-carousel: 70vh;
-  --h-footer:   40vh;
+  /* Hauteur minimale : elle s'agrandit si le contenu est plus grand */
+  --h-banner: 100vh;
+  --h-video: 100vh;
+  --h-footer: 40vh;
 }
 
 /* ============================================================
@@ -90,9 +88,10 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.8vw;
-  width: clamp(350px, 64vw, 680px);
+  gap: 0.4vw;
+  width: min(680px, calc(100vw - 1.5rem));
   height: 6vh;
+  min-height: 44px;
   position: fixed;
   bottom: 4vh;
   left: 50%;
@@ -104,8 +103,11 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 .nav-item {
   height: 100%;
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-item > a {
@@ -113,7 +115,8 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(100px, 14vw, 200px);
+  width: 100%;
+  max-width: 200px;
   text-align: center;
   font-family: 'BianzhidaiPearl', sans-serif;
   color: #463838;
@@ -210,14 +213,9 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   transition: opacity 0.25s ease;
 }
 
-.text-block:hover p {
+.text-block:hover p,
+.text-block.is-inview p {
   opacity: 1;
-}
-
-@media (hover: none) {
-  .text-block p {
-    opacity: 1;
-  }
 }
 
 /* ============================================================
@@ -253,27 +251,11 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   paint-order: stroke fill;
 }
 
-.section-text strong {
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-weight: normal;
-  background-color: #95D8EF;
-  -webkit-text-stroke: 0;
-}
-
 .section-text .highlight {
   font-family: 'BianzhidaiCloud', sans-serif;
   font-weight: normal;
   background-color: #95D8EF;
   -webkit-text-stroke: 0;
-}
-
-.section-titre {
-  display: inline-block;
-  font-family: 'BianzhidaiCloud', sans-serif;
-  font-weight: normal;
-  font-size: clamp(24px, 2.5vw, 34px);
-  background-color: #95D8EF;
-  margin-bottom: 2vh;
 }
 
 .video-wrapper {
@@ -490,16 +472,6 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   height: 8vh;
 }
 
-.footer-block p {
-  font-family: 'Garabosse', sans-serif;
-  font-weight: bold;
-  font-size: clamp(14px, 1.2vw, 20px);
-  color: #000000;
-  margin-bottom: 0.5rem;
-  -webkit-text-stroke: 6px #9583FF;
-  paint-order: stroke fill;
-}
-
 .footer-block h4 {
   font-size: clamp(18px, 2vw, 32px);
   font-weight: normal;
@@ -533,14 +505,35 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
 
 @media (max-width: 768px) {
 
-  /* Largeur de la page et hauteurs des sections sur mobile (à modifier ici) */
   :root {
-    --page-w:     90vw;
-    --h-banner:   100vh;
-    --h-text:     auto;
-    --h-video:    auto;
-    --h-carousel: auto;
-    --h-footer:   auto;
+    --page-w: 90vw;
+    --h-video: auto;
+    --h-footer: auto;
+  }
+
+  .topnav {
+    bottom: 0.8rem;
+    height: auto;
+  }
+
+  .nav-item > a {
+    font-size: clamp(7px, 2.35vw, 14px);
+  }
+
+  .nav-item > a::after {
+    font-size: clamp(7px, 2.3vw, 12px);
+  }
+
+  .tagline,
+  .text-block p,
+  .section-text p,
+  .argu p {
+    -webkit-text-stroke-width: 3px;
+  }
+
+  .tagline {
+    width: 100%;
+    font-size: clamp(16px, 4.6vw, 24px);
   }
 
   .text-block {
@@ -548,27 +541,47 @@ a, button, .nav-item, .nav-item > a, .carousel-slide, .carousel-btn, .lightbox-c
   }
 
   .text-block p {
-    text-align: center;
+    font-size: clamp(14px, 3.8vw, 22px);
+    padding: 6%;
   }
 
-  .section-text p {
-    text-align: justify;
+  .section-text {
+    margin-top: 4vh;
+    margin-bottom: 4vh;
   }
 
   .section-content {
-    padding: 2rem 0;
+    padding: 1rem 0 2rem;
   }
 
-  .section-text p {
-    padding-block: 2rem;
+  .section-text p,
+  .argu p {
+    font-size: clamp(16px, 4.2vw, 24px);
   }
 
   .video-wrapper {
-    width: calc(100% - 1rem);
-    padding-bottom: 5%;
+    width: 100%;
+    margin-block: 0;
   }
 
-  .carousel-btn {
-    padding: 0 0.5rem;
+  .carousel-slide img {
+    border-width: 3px;
+  }
+
+  .footer-block {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding-bottom: 12vh;
+  }
+
+  .footer-credits {
+    text-align: center;
+  }
+
+  .footer-block-logos {
+    justify-content: center;
+    height: auto;
   }
 }

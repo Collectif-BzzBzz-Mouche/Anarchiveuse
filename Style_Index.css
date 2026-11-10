@@ -101,24 +101,6 @@ a, button, .nav-item, .nav-item > a {
 }
 
 /* ============================================================
-                          BOUTON SON
-============================================================ */
-
-.sound-btn {
-  position: absolute;
-  top: 3vh;
-  right: 3vw;
-  z-index: 2;
-  font-family: 'BianzhidaiPearl', sans-serif;
-  font-size: clamp(10px, 1.8vw, 16px);
-  color: #463838;
-  background-color: #B6F772;
-  box-shadow: 4px 4px 4px 0px #7562C7;
-  border: none;
-  padding: 0.4em 1.8em;
-}
-
-/* ============================================================
                             MENU
 ============================================================ */
 
@@ -127,9 +109,10 @@ a, button, .nav-item, .nav-item > a {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.8vw;
-  width: clamp(350px, 64vw, 680px);
+  gap: 0.4vw;
+  width: min(680px, calc(100vw - 1.5rem));
   height: 6vh;
+  min-height: 44px;
   position: fixed;
   bottom: 4vh;
   left: 50%;
@@ -141,8 +124,11 @@ a, button, .nav-item, .nav-item > a {
 
 .nav-item {
   height: 100%;
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-item > a {
@@ -150,7 +136,8 @@ a, button, .nav-item, .nav-item > a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(100px, 14vw, 200px);
+  width: 100%;
+  max-width: 200px;
   text-align: center;
   font-family: 'BianzhidaiPearl', sans-serif;
   color: #ffffff;
@@ -187,12 +174,26 @@ a, button, .nav-item, .nav-item > a {
 
 @media (max-width: 600px) {
   .hero-image {
-    max-width: 80vw;
-    max-height: 50vh;
+    max-width: 88vw;
+    max-height: 46vh;
+    padding-top: 2vh;
   }
 
   .scroll-arrow {
     font-size: clamp(36px, 12vw, 56px);
+  }
+
+  .topnav {
+    bottom: 1rem;
+    height: auto;
+  }
+
+  .nav-item > a {
+    font-size: clamp(7px, 2.35vw, 13px);
+  }
+
+  .nav-item > a::after {
+    font-size: clamp(7px, 2.3vw, 11px);
   }
 }
 

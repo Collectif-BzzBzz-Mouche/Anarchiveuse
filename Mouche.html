@@ -119,6 +119,39 @@
     <img src="images/Expo/Retouches__18.png">
     <p>“Se projeter dans le futur peut être sérieux, inquiétant voire  déprimant. Comment pourrait-on le concevoir autrement, déplacer nos imaginaires ? Pourquoi ne pas envisager des moyens de résistance subsistant au déni et au cynisme par le rire, le jeu et l’expérimentation ?”</p>
   </div>
+  <script>
+    (function () {
+      const bloc = document.querySelector('.text-block');
+      if (!bloc) return;
+
+      const mobile = window.matchMedia('(hover: none), (max-width: 768px)');
+      let prévu = false;
+
+      function maj() {
+        prévu = false;
+        if (!mobile.matches) {
+          bloc.classList.remove('is-inview');
+          return;
+        }
+        const r = bloc.getBoundingClientRect();
+        const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+        const besoin = Math.min(r.height * 0.35, window.innerHeight * 0.35);
+        bloc.classList.toggle('is-inview', visible >= besoin);
+      }
+
+      function demander() {
+        if (prévu) return;
+        prévu = true;
+        requestAnimationFrame(maj);
+      }
+
+      maj();
+      window.addEventListener('scroll', demander, { passive: true });
+      window.addEventListener('resize', demander);
+      if (mobile.addEventListener) mobile.addEventListener('change', demander);
+      else if (mobile.addListener) mobile.addListener(demander);
+    })();
+  </script>
 
 <!-------------------------------------------------------------
                           TEASER         
@@ -146,7 +179,7 @@
                     CARROUSEL + MANIFESTE
 -------------------------------------------------------------->
   <div class="carousel-argu">
-    <h2 class="section-title carousel-title">Manifeste du collectif</h2>
+    <h2 class="carousel-title">Manifeste du collectif</h2>
     <div class="argu">
       <p>Le manifeste du collectif, une pellicule-abécédaire présentée ci-dessous, offre un aperçu des premières intentions curatoriales : une archéologie des récits et des médias, explorant les porosités entre des imaginaires pluriels aux liens potentiellement incongrus.</p>
     </div>
